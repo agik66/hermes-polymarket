@@ -29,7 +29,9 @@ DEFAULT_RULES = {
     "min_wallet_trade_usd": 100.0,
     "min_hours_to_resolution": 1.0,
     "max_days_to_resolution": 30.0,
-    "size_min": 5.0, "size_max": 20.0,
+    "size_min": 5.0,
+    "bankroll_start": 100.0, "target": 1000.0,   # paper bankroll: grow $100 -> $1000
+    "risk_min": 0.05, "risk_max": 0.15,          # fraction of equity per trade by confidence
     "min_entry_price": 0.05, "max_entry_price": 0.92,  # no lottery tickets, no near-certainties
     "w_roi": 0.35, "w_consistency": 0.35, "w_copyability": 0.30,
 }
@@ -106,7 +108,9 @@ def get_rules(c):
                   (json.dumps(DEFAULT_RULES), now()))
         c.commit()
         return dict(DEFAULT_RULES), 1
-    return json.loads(r["json"]), r["version"]
+    merged = dict(DEFAULT_RULES)
+    merged.update(json.loads(r["json"]))  # new default keys appear without resetting learned values
+    return merged, r["version"]
 
 # ---------------------------------------------------------------- scoring (pure, testable)
 def one_hit_penalty(position_pnls):
@@ -155,9 +159,21 @@ def score_trade(wallet_score, drift, spread, liquidity, hours_to_res, size_usd, 
          "conviction": .12, "time_fit": .08}
     return round(100 * sum(b[k] * w[k] for k in w), 1), {k: round(v, 3) for k, v in b.items()}, None
 
-def position_size(score, rules):
-    lo, hi, gate = rules["size_min"], rules["size_max"], rules["min_copy_score"]
-    return round(lo + (hi - lo) * clamp((score - gate) / max(1, 100 - gate)), 2)
+def position_size(score, rules, equity, cash):
+    """Confidence-scaled fraction of equity, capped by available cash (no leverage)."""
+    conf = clamp((score - rules["min_copy_score"]) / max(1, 100 - rules["min_copy_score"]))
+    size = equity * (rules["risk_min"] + (rules["risk_max"] - rules["risk_min"]) * conf)
+    size = min(size, cash)
+    return round(size, 2) if size >= rules["size_min"] else 0.0
+
+def bankroll(c, rules):
+    """(equity, cash) of the paper bankroll."""
+    t = c.execute("""SELECT COALESCE(SUM(COALESCE(real,0)),0) r,
+                            COALESCE(SUM(CASE WHEN status='open' THEN unreal ELSE 0 END),0) u,
+                            COALESCE(SUM(CASE WHEN status='open' THEN size ELSE 0 END),0) o
+                     FROM paper_trades""").fetchone()
+    start = rules["bankroll_start"]
+    return round(start + t["r"] + t["u"], 2), round(start + t["r"] - t["o"], 2)
 
 def paper_pnl(entry, cur, size):
     shares = size / entry if entry > 0 else 0
@@ -306,8 +322,13 @@ def step_monitor(c, rules, rv):
                 if fail:
                     dec, reasons, sz = "skip", [fail], 0
                 elif score >= rules["min_copy_score"]:
-                    dec, sz = "paper_copy", position_size(score, rules)
-                    reasons = ["wallet %s score %.0f" % (w["label"][:16], w["global_score"] or 0),
+                    eq, cash = bankroll(c, rules)
+                    sz = position_size(score, rules, eq, cash)
+                    dec = "paper_copy" if sz > 0 else "skip"
+                    if sz <= 0:
+                        reasons = ["insufficient paper cash ($%.2f) for min stake" % cash]
+                    else:
+                        reasons = ["wallet %s score %.0f" % (w["label"][:16], w["global_score"] or 0),
                                "copy score %.0f >= gate %.0f" % (score, rules["min_copy_score"]),
                                "spread %.3f, liq $%.0fk, drift %+.3f" % (info["spread"], info["liquidity"] / 1000, drift)]
                 else:

@@ -41,8 +41,12 @@ assert fail is None and s_hi >= R["min_copy_score"], s_hi
 s_lo, _, _ = score_trade(30, 0.005, 0.01, 60000, 72, 1000, R)
 assert s_lo < s_hi
 
-# position sizing within $5-$20, monotone in score
-assert R["size_min"] <= position_size(60, R) <= position_size(95, R) <= R["size_max"]
+# bankroll sizing: fraction of equity, monotone in score, capped by cash, floor $5
+assert R["size_min"] <= position_size(60, R, 100, 100) <= position_size(95, R, 100, 100)
+assert position_size(95, R, 100, 100) <= R["risk_max"] * 100 + 0.01
+assert position_size(95, R, 100, 7.5) == 7.5      # cash cap, no leverage
+assert position_size(95, R, 100, 3) == 0.0        # below min stake -> no trade
+assert position_size(95, R, 1000, 1000) > position_size(95, R, 100, 100)  # compounds
 
 # paper pnl math: $10 at 0.50 -> 0.60 = +$2
 assert abs(paper_pnl(0.50, 0.60, 10) - 2.0) < 1e-9

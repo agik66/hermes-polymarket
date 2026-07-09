@@ -93,7 +93,9 @@ fetch('data.json?_='+Date.now()).then(r=>r.json()).then(D=>{
   const resolved=pts.filter(p=>p.real!=null), wins=resolved.filter(p=>p.real>0);
   const today=new Date().toISOString().slice(0,10);
   const sigsToday=D.signals.filter(s=>new Date(s.created*1000).toISOString().slice(0,10)===today);
+  const eq=(D.rules.bankroll_start||100)+(last.total_pnl||0), goal=D.rules.target||1000;
   const tiles=[
+    ['Paper bankroll → $'+goal,usd(eq),pnlCls(last.total_pnl),`${(100*eq/goal).toFixed(1)}% of target · started $${D.rules.bankroll_start||100}`],
     ['Total paper PnL',usd(last.total_pnl),pnlCls(last.total_pnl),`realized ${usd(last.realized)} · unrealized ${usd(last.unrealized)}`],
     ['vs blind copy',usd((last.total_pnl||0)-(last.blind_pnl||0)),pnlCls((last.total_pnl||0)-(last.blind_pnl||0)),`benchmark ${usd(last.blind_pnl)}`],
     ['Win rate',resolved.length?fmt(100*wins.length/resolved.length,0)+'%':'–','',`${wins.length}/${resolved.length} resolved`],
