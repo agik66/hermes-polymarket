@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hermes · Polymarket Paper Bot</title>
+<style>
+:root{
+  --page:#f9f9f7; --surface:#fcfcfb; --ink:#0b0b0b; --ink2:#52514e; --muted:#898781;
+  --grid:#e1e0d9; --axis:#c3c2b7; --border:rgba(11,11,11,.10);
+  --s1:#2a78d6; --s2:#1baf7a; --good:#006300; --bad:#d03b3b; --warn:#fab219;
+}
+@media (prefers-color-scheme: dark){:root{
+  --page:#0d0d0d; --surface:#1a1a19; --ink:#fff; --ink2:#c3c2b7; --muted:#898781;
+  --grid:#2c2c2a; --axis:#383835; --border:rgba(255,255,255,.10);
+  --s1:#3987e5; --s2:#199e70; --good:#0ca30c; --bad:#d03b3b;
+}}
+*{box-sizing:border-box;margin:0}
+body{background:var(--page);color:var(--ink);font:15px/1.45 system-ui,-apple-system,"Segoe UI",sans-serif;padding:20px 16px 60px;max-width:1200px;margin:0 auto}
+h1{font-size:20px;font-weight:650}
+.sub{color:var(--ink2);font-size:13px;margin-top:2px}
+.badge{display:inline-block;font-size:11px;font-weight:600;letter-spacing:.04em;padding:2px 8px;border-radius:99px;border:1px solid var(--border);color:var(--ink2);vertical-align:2px;margin-left:8px}
+.badge.safety{color:var(--warn);border-color:var(--warn)}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:18px 0}
+.tile{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 14px}
+.tile .k{font-size:12px;color:var(--muted)}
+.tile .v{font-size:24px;font-weight:650;margin-top:2px}
+.tile .d{font-size:12px;color:var(--ink2);margin-top:2px}
+.pos{color:var(--good)} .neg{color:var(--bad)}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px;margin:14px 0}
+.card h2{font-size:14px;font-weight:650;margin-bottom:10px}
+.legend{display:flex;gap:16px;font-size:12px;color:var(--ink2);margin-bottom:6px}
+.legend .sw{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+.tabs{display:flex;gap:4px;flex-wrap:wrap;margin:20px 0 10px}
+.tabs button{background:none;border:1px solid transparent;border-radius:8px;padding:6px 12px;font:600 13px system-ui;color:var(--ink2);cursor:pointer}
+.tabs button.on{background:var(--surface);border-color:var(--border);color:var(--ink)}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{color:var(--muted);font-weight:600;text-align:left;padding:6px 8px;border-bottom:1px solid var(--grid);white-space:nowrap}
+td{padding:6px 8px;border-bottom:1px solid var(--grid);vertical-align:top}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+.wrap{overflow-x:auto}
+.pill{font-size:11px;font-weight:600;padding:1px 7px;border-radius:99px;border:1px solid var(--border)}
+.pill.track,.pill.paper_copy,.pill.good_copy,.pill.avoided_loser{color:var(--good);border-color:var(--good)}
+.pill.watch,.pill.watchlist,.pill.neutral{color:var(--ink2)}
+.pill.ignore,.pill.skip{color:var(--muted)}
+.pill.bad_copy,.pill.missed_winner{color:var(--bad);border-color:var(--bad)}
+.small{font-size:12px;color:var(--ink2)}
+.mono{font-family:ui-monospace,Menlo,monospace;font-size:12px}
+#tt{position:fixed;pointer-events:none;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:6px 10px;font-size:12px;box-shadow:0 4px 14px rgba(0,0,0,.15);display:none;z-index:9}
+svg text{fill:var(--muted);font:11px system-ui}
+footer{margin-top:30px;font-size:12px;color:var(--muted)}
+a{color:var(--s1)}
+</style>
+</head>
+<body>
+<h1>Hermes · Polymarket Copy-Trading Research Bot
+<span class="badge safety">PAPER ONLY</span><span class="badge" id="rulesv"></span></h1>
+<div class="sub" id="meta">loading data.json…</div>
+
+<div class="tiles" id="tiles"></div>
+
+<div class="card">
+  <h2>Paper PnL over time — bot-filtered vs blind copy benchmark</h2>
+  <div class="legend">
+    <span><span class="sw" style="background:var(--s1)"></span>Bot-filtered strategy</span>
+    <span><span class="sw" style="background:var(--s2)"></span>Blind copy of tracked wallets ($10/trade)</span>
+  </div>
+  <div id="chart"></div>
+</div>
+
+<div class="card" id="learned"><h2>What did the bot learn?</h2><div id="learnbody" class="small">–</div></div>
+
+<div class="tabs" id="tabs"></div>
+<div class="card"><div class="wrap" id="pane"></div></div>
+<div id="tt"></div>
+<footer>Research tool. No real trades, no private keys, not financial advice.
+Data: Polymarket public APIs. <a href="data.json">raw data.json</a></footer>
+
+<script>
+const $=s=>document.querySelector(s);
+const fmt=(x,d=2)=>x==null?'–':(+x).toFixed(d);
+const usd=x=>x==null?'–':(x<0?'-$':'$')+Math.abs(+x).toFixed(2);
+const pnlCls=x=>x>0?'pos':x<0?'neg':'';
+const ts=t=>new Date(t*1000).toISOString().slice(5,16).replace('T',' ');
+const esc=s=>(''+(s??'')).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const pill=s=>`<span class="pill ${esc(s)}">${esc((s||'').replace('_',' '))}</span>`;
+const addr=a=>`<a class="mono" href="https://polymarket.com/profile/${a}" target="_blank" rel="noopener">${a.slice(0,6)}…${a.slice(-4)}</a>`;
+
+fetch('data.json?_='+Date.now()).then(r=>r.json()).then(D=>{
+  $('#rulesv').textContent='rules v'+D.rules_version;
+  $('#meta').textContent=`updated ${D.generated_at} UTC · ${D.safety}`;
+  const pts=D.paper_trades, snaps=D.portfolio, last=snaps[snaps.length-1]||{};
+  const resolved=pts.filter(p=>p.real!=null), wins=resolved.filter(p=>p.real>0);
+  const today=new Date().toISOString().slice(0,10);
+  const sigsToday=D.signals.filter(s=>new Date(s.created*1000).toISOString().slice(0,10)===today);
+  const tiles=[
+    ['Total paper PnL',usd(last.total_pnl),pnlCls(last.total_pnl),`realized ${usd(last.realized)} · unrealized ${usd(last.unrealized)}`],
+    ['vs blind copy',usd((last.total_pnl||0)-(last.blind_pnl||0)),pnlCls((last.total_pnl||0)-(last.blind_pnl||0)),`benchmark ${usd(last.blind_pnl)}`],
+    ['Win rate',resolved.length?fmt(100*wins.length/resolved.length,0)+'%':'–','',`${wins.length}/${resolved.length} resolved`],
+    ['Open positions',last.open_count??0,'',''],
+    ['Tracked wallets',D.wallets.filter(w=>w.status==='track').length,'',`of ${(D.leaderboard_size||{}).wallet_count||'–'} scanned`],
+    ['Signals today',sigsToday.length,'',`${sigsToday.filter(s=>s.decision==='paper_copy').length} copied`],
+  ];
+  $('#tiles').innerHTML=tiles.map(([k,v,c,d])=>`<div class="tile"><div class="k">${k}</div><div class="v ${c}">${v}</div><div class="d">${d}</div></div>`).join('');
+
+  // learned card: latest rule changes + latest lessons
+  const rc=D.rule_changes.slice(0,3), rl=D.reviews.slice(0,4);
+  $('#learnbody').innerHTML=(rc.length?'<b>Rule changes:</b><br>'+rc.map(r=>`v${r.old_version}→v${r.new_version}: <b>${esc(r.key)}</b> ${r.before}→${r.after} — ${esc(r.reason)} (${esc(r.evidence)})`).join('<br>')+'<br><br>':'No automatic rule changes yet — collecting evidence.<br><br>')
+   +(rl.length?'<b>Latest outcome reviews:</b><br>'+rl.map(r=>`${pill(r.kind)} ${esc(r.question||'')} — ${esc(r.lesson)}`).join('<br>'):'');
+
+  // chart
+  drawChart(snaps);
+
+  // tabs
+  const panes={
+    'Wallet Rankings':()=>table(['#','Wallet','Status','Score','ROI 30d','Win rate','Resolved','1-hit pen.','Avg size','Trades 30d','Category','Why'],
+      D.wallets.map(w=>[w.source_rank,addr(w.address),pill(w.status),fmt(w.global_score,0),fmt(100*w.roi30d,1)+'%',fmt(100*w.win_rate,0)+'%',w.resolved_count,fmt(w.one_hit_penalty,2),usd(w.avg_trade_size),w.trade_count_30d,esc(w.best_category),`<span class="small">${esc(w.status_reason)}</span>`]),[0,3,4,5,6,7,8,9]),
+    'Trade Signals':()=>table(['When','Wallet','Market','Side','Wallet px','Detected px','Score','Decision','Reasons'],
+      D.signals.map(s=>[ts(s.created),addr(s.wallet),esc(s.question),esc(s.outcome),fmt(s.wallet_price,3),fmt(s.detected_price,3),fmt(s.score,0),pill(s.decision),`<span class="small">${JSON.parse(s.reasons||'[]').map(esc).join('; ')}</span>`]),[4,5,6]),
+    'Paper Trades':()=>table(['Opened','Market','Side','Entry','Current','Size','PnL','Status','Reason'],
+      pts.map(p=>{const pnl=p.real!=null?p.real:p.unreal;return [ts(p.opened),esc(p.question),esc(p.outcome),fmt(p.entry,3),fmt(p.cur,3),usd(p.size),`<span class="${pnlCls(pnl)}">${usd(pnl)}</span>`,pill(p.status),`<span class="small">${esc(p.reason)}</span>`]}),[3,4,5,6]),
+    'Decision Journal':()=>table(['When','Market','Decision','Score','Judged','Lesson'],
+      D.reviews.map(r=>[ts(r.at),esc(r.question),pill(r.decision),fmt(r.score,0),r.was_good==null?'–':(r.was_good?'✓ good':'✗ bad'),`<span class="small">${pill(r.kind)} ${esc(r.lesson)}</span>`]),[3]),
+    'Rules':()=>`<h2 style="font-size:13px;margin-bottom:8px">Active thresholds (v${D.rules_version})</h2>`
+      +table(['Rule','Value'],Object.entries(D.rules).map(([k,v])=>[`<span class="mono">${esc(k)}</span>`,fmt(v, k.startsWith('w_')||k.includes('spread')||k.includes('drift')||k.includes('price')?3:1)]),[1])
+      +`<h2 style="font-size:13px;margin:16px 0 8px">Change history — every change logged with evidence</h2>`
+      +(D.rule_changes.length?table(['When','Version','Rule','Before','After','Reason','Evidence'],
+        D.rule_changes.map(r=>[ts(r.created),`v${r.old_version}→v${r.new_version}`,`<span class="mono">${esc(r.key)}</span>`,r.before,r.after,esc(r.reason),`<span class="small">${esc(r.evidence)}</span>`]),[3,4]):'<div class="small">No changes yet.</div>'),
+    'Reports':()=>D.reports.map(r=>{const j=JSON.parse(r.json);return `<div style="margin-bottom:14px"><b>${r.date}</b><div class="small">
+      paper PnL ${usd(j.total_paper_pnl)} · blind benchmark ${usd(j.blind_benchmark_pnl)} · win rate ${j.win_rate==null?'–':fmt(100*j.win_rate,0)+'%'} · open ${j.open_positions}<br>
+      signals: ${Object.entries(j.signals||{}).map(([k,v])=>k+' '+v).join(', ')||'none'}<br>
+      best: ${j.best_trade?esc(j.best_trade.q)+' ('+usd(j.best_trade.pnl)+')':'–'} · worst: ${j.worst_trade?esc(j.worst_trade.q)+' ('+usd(j.worst_trade.pnl)+')':'–'}<br>
+      rule changes: ${j.rule_changes.length?j.rule_changes.map(c=>`${c.key} ${c.before}→${c.after}`).join('; '):'none'}<br>
+      top lesson: ${esc(j.top_lesson)}</div></div>`}).join('')||'<div class="small">No reports yet.</div>',
+  };
+  const names=Object.keys(panes);
+  $('#tabs').innerHTML=names.map((n,i)=>`<button data-i="${i}" class="${i?'':'on'}">${n}</button>`).join('');
+  const show=i=>{$('#pane').innerHTML=panes[names[i]]();document.querySelectorAll('.tabs button').forEach((b,j)=>b.classList.toggle('on',i===j))};
+  $('#tabs').onclick=e=>{if(e.target.dataset.i)show(+e.target.dataset.i)};
+  show(0);
+}).catch(e=>{$('#meta').textContent='FAILED to load data.json: '+e;});
+
+function table(head,rows,numCols=[]){
+  return `<table><thead><tr>${head.map((h,i)=>`<th class="${numCols.includes(i)?'num':''}">${h}</th>`).join('')}</tr></thead>
+  <tbody>${rows.map(r=>`<tr>${r.map((c,i)=>`<td class="${numCols.includes(i)?'num':''}">${c??'–'}</td>`).join('')}</tr>`).join('')}</tbody></table>`;
+}
+
+function drawChart(snaps){
+  if(snaps.length<1){$('#chart').innerHTML='<div class="small">No snapshots yet.</div>';return}
+  const W=Math.min(1140,document.body.clientWidth-60),H=220,P={l:44,r:14,t:10,b:22};
+  const xs=snaps.map(s=>s.at), ys=snaps.flatMap(s=>[s.total_pnl,s.blind_pnl??0]);
+  const x0=Math.min(...xs),x1=Math.max(...xs,x0+1),lo=Math.min(0,...ys),hi=Math.max(0.5,...ys);
+  const X=t=>P.l+(W-P.l-P.r)*(t-x0)/(x1-x0), Y=v=>P.t+(H-P.t-P.b)*(1-(v-lo)/(hi-lo));
+  const line=(key,color)=>snaps.length===1
+    ?`<circle cx="${X(xs[0])}" cy="${Y(snaps[0][key]??0)}" r="4" fill="${color}"/>`
+    :`<path d="${snaps.map((s,i)=>(i?'L':'M')+X(s.at).toFixed(1)+' '+Y(s[key]??0).toFixed(1)).join('')}" fill="none" stroke="${color}" stroke-width="2" stroke-linejoin="round"/>`;
+  const gridY=[...Array(4)].map((_,i)=>lo+(hi-lo)*i/3);
+  $('#chart').innerHTML=`<svg id="svg" width="${W}" height="${H}" role="img" aria-label="Paper PnL over time">
+    ${gridY.map(v=>`<line x1="${P.l}" x2="${W-P.r}" y1="${Y(v)}" y2="${Y(v)}" stroke="var(--grid)"/>
+      <text x="${P.l-6}" y="${Y(v)+4}" text-anchor="end">${v.toFixed(1)}</text>`).join('')}
+    <line x1="${P.l}" x2="${W-P.r}" y1="${Y(0)}" y2="${Y(0)}" stroke="var(--axis)"/>
+    <text x="${P.l}" y="${H-6}">${ts(x0)}</text><text x="${W-P.r}" y="${H-6}" text-anchor="end">${ts(x1)}</text>
+    ${line('blind_pnl','var(--s2)')}${line('total_pnl','var(--s1)')}
+    <line id="cross" y1="${P.t}" y2="${H-P.b}" stroke="var(--axis)" stroke-dasharray="3 3" visibility="hidden"/>
+  </svg>`;
+  const svg=$('#svg'),tt=$('#tt'),cross=$('#cross');
+  svg.onmousemove=e=>{
+    const r=svg.getBoundingClientRect(),mx=e.clientX-r.left;
+    let best=0,bd=1e12;snaps.forEach((s,i)=>{const d=Math.abs(X(s.at)-mx);if(d<bd){bd=d;best=i}});
+    const s=snaps[best];cross.setAttribute('x1',X(s.at));cross.setAttribute('x2',X(s.at));cross.setAttribute('visibility','visible');
+    tt.style.display='block';tt.style.left=(e.clientX+14)+'px';tt.style.top=(e.clientY-10)+'px';
+    tt.innerHTML=`${ts(s.at)} UTC<br>bot: <b class="${pnlCls(s.total_pnl)}">${usd(s.total_pnl)}</b> · blind: ${usd(s.blind_pnl)}<br>open: ${s.open_count}`;
+  };
+  svg.onmouseleave=()=>{tt.style.display='none';cross.setAttribute('visibility','hidden')};
+}
+</script>
+</body>
+</html>
