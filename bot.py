@@ -314,7 +314,8 @@ def step_monitor(c, rules, rv):
                 dec, score, reasons, bd, sz = "skip", 0, ["market closed or no live price"], {}, 0
             else:
                 drift = mid - t["price"]  # positive = we'd pay more than the wallet did
-                dup = c.execute("SELECT 1 FROM paper_trades WHERE asset=? AND status='open'", (asset,)).fetchone()
+                dup = c.execute("SELECT 1 FROM paper_trades WHERE condition_id=? AND status='open'",
+                                (t.get("conditionId"),)).fetchone()
                 score, bd, fail = score_trade(w["global_score"] or 0, drift, info["spread"],
                                               info["liquidity"], info["hours_to_res"], size_usd, rules, mid=mid)
                 if dup:
@@ -400,11 +401,18 @@ def step_review(c, rules, rv):
     for d in pend:
         price = midpoint(d["asset"])
         if price is None:
-            info = market_info(c.execute("SELECT condition_id FROM observed_trades WHERE id=?",
-                                         (d["observed_id"],)).fetchone()["condition_id"])
-            oi = c.execute("SELECT outcome_index FROM observed_trades WHERE id=?", (d["observed_id"],)).fetchone()["outcome_index"]
+            ot = c.execute("SELECT condition_id, outcome_index FROM observed_trades WHERE id=?",
+                           (d["observed_id"],)).fetchone()
+            try: info = market_info(ot["condition_id"])
+            except Exception: info = None
+            oi = ot["outcome_index"]
             if info and info["prices"] and oi is not None and oi < len(info["prices"]):
                 price = float(info["prices"][oi])
+            elif info is None or info["closed"]:
+                # dead market with no final price: mark unpriced so it never retries
+                c.execute("INSERT OR IGNORE INTO reviews(decision_id,at,price_now,drift,was_good,kind,lesson) VALUES(?,?,NULL,NULL,NULL,'unpriced','market closed, no final price available')",
+                          (d["id"], now()))
+                continue
         if price is None: continue
         drift = price - (d["detected_price"] or price)
         if d["decision"] == "paper_copy":
@@ -423,7 +431,7 @@ def step_review(c, rules, rv):
     # ---- learning: evidence-driven threshold updates (the bot's "learning" core)
     changes = []
     rows = c.execute("""SELECT d.*, r.drift rdrift, r.kind FROM decisions d
-                        JOIN reviews r ON r.decision_id=d.id""").fetchall()
+                        JOIN reviews r ON r.decision_id=d.id WHERE r.kind!='unpriced'""").fetchall()
     copies = [x for x in rows if x["decision"] == "paper_copy"]
     def avg(xs): return sum(xs) / len(xs)
     hs = [x["rdrift"] for x in copies if (x["spread"] or 0) > 0.6 * rules["max_spread"]]
