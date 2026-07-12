@@ -2461,3 +2461,9 @@ monitor: 34 new trades, 0 paper copies (rules v9)
 pnl: 8 open updated, total -13.74 (blind bench 33461.94)
 report: 2026-07-12 pnl=-13.74
 export: docs/data.json written
+=== 2026-07-12 14:31:33
+monitor: 0 new trades, 0 paper copies (rules v10)
+pnl: 8 open updated, total -13.74 (blind bench 254.69)
+review: 26 decisions reviewed, 0 rule changes
+report: 2026-07-12 pnl=-13.74
+export: docs/data.json written

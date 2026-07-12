@@ -372,6 +372,14 @@ def step_pnl(c):
                       (final, pnl, now(), pt["id"]))
             c.execute("INSERT INTO pnl_snapshots(paper_id,price,pnl,at) VALUES(?,?,?,?)",
                       (pt["id"], final, pnl, now()))
+        elif (px := mid if mid is not None else (pt["cur"] or 0.5)) <= 0.005 or px >= 0.995:
+            # de-facto decided (gamma flips `closed` days later, dead books 404 the
+            # midpoint) — realize at the extreme price instead of locking the stake
+            pnl = paper_pnl(pt["entry"], px, pt["size"])
+            c.execute("UPDATE paper_trades SET status='resolved', cur=?, real=?, unreal=0, closed=? WHERE id=?",
+                      (px, pnl, now(), pt["id"]))
+            c.execute("INSERT INTO pnl_snapshots(paper_id,price,pnl,at) VALUES(?,?,?,?)",
+                      (pt["id"], px, pnl, now()))
         elif mid is not None:
             pnl = paper_pnl(pt["entry"], mid, pt["size"])
             c.execute("UPDATE paper_trades SET cur=?, unreal=? WHERE id=?", (mid, pnl, pt["id"]))
