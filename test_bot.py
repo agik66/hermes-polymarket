@@ -65,7 +65,7 @@ for i in range(3):
     c.execute("INSERT INTO decisions(observed_id,wallet,decision,score,spread,liquidity,drift,created) VALUES(?, '0xw','paper_copy',70,?,?,0.0,1)",
               (oid, 0.025, 50000))
     did = c.execute("SELECT last_insert_rowid() i").fetchone()["i"]
-    c.execute("INSERT INTO reviews(decision_id,at,price_now,drift,was_good,kind,lesson) VALUES(?,2,0.45,-0.05,0,'bad_copy','x')", (did,))
+    c.execute("INSERT INTO reviews(decision_id,at,price_now,drift,was_good,kind,lesson) VALUES(?,9999999999,0.45,-0.05,0,'bad_copy','x')", (did,))
 c.commit()
 bot.midpoint = lambda a: None  # no network in tests
 bot.step_review(c, rules, rv)

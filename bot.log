@@ -1,0 +1,2463 @@
+=== 2026-07-09 14:08:55
+monitor: 0 new trades, 0 paper copies (rules v1)
+pnl: 4 open updated, total 3.25 (blind bench 12.94)
+review: 188 decisions reviewed, 0 rule changes
+report: 2026-07-09 pnl=3.25
+export: docs/data.json written
+=== 2026-07-09 14:27:54
+monitor: 5 new trades, 0 paper copies (rules v1)
+pnl: 4 open updated, total 2.53 (blind bench 11.17)
+review: 13 decisions reviewed, 0 rule changes
+report: 2026-07-09 pnl=2.53
+export: docs/data.json written
+=== 2026-07-09 14:43:04
+monitor: 4 new trades, 0 paper copies (rules v1)
+pnl: 4 open updated, total 5.11 (blind bench 6.81)
+review: 0 decisions reviewed, 0 rule changes
+report: 2026-07-09 pnl=5.11
+export: docs/data.json written
+=== 2026-07-09 14:58:08
+monitor: 4 new trades, 0 paper copies (rules v1)
+pnl: 4 open updated, total -0.39 (blind bench -0.24)
+review: 2 decisions reviewed, 0 rule changes
+report: 2026-07-09 pnl=-0.39
+export: docs/data.json written
+=== 2026-07-09 15:13:13
+monitor: 2 new trades, 1 paper copies (rules v1)
+pnl: 5 open updated, total -8.46 (blind bench -29.61)
+review: 0 decisions reviewed, 0 rule changes
+report: 2026-07-09 pnl=-8.46
+export: docs/data.json written
+=== 2026-07-09 15:28:18
+monitor: 8 new trades, 2 paper copies (rules v1)
+pnl: 7 open updated, total -6.37 (blind bench -28.54)
+review: 5 decisions reviewed, 0 rule changes
+report: 2026-07-09 pnl=-6.37
+export: docs/data.json written
+=== 2026-07-09 15:43:25
+monitor: 13 new trades, 1 paper copies (rules v1)
+pnl: 8 open updated, total 19.26 (blind bench -12.49)
+review: 4 decisions reviewed, 0 rule changes
+report: 2026-07-09 pnl=19.26
+export: docs/data.json written
+=== 2026-07-09 15:58:34
+monitor: 38 new trades, 0 paper copies (rules v1)
+pnl: 8 open updated, total -20.74 (blind bench -37.09)
+review: 4 decisions reviewed, 0 rule changes
+report: 2026-07-09 pnl=-20.74
+export: docs/data.json written
+=== 2026-07-09 16:14:27
+monitor: 40 new trades, 0 paper copies (rules v1)
+pnl: 8 open updated, total -17.31 (blind bench -33.32)
+review: 2 decisions reviewed, 0 rule changes
+report: 2026-07-09 pnl=-17.31
+export: docs/data.json written
+=== 2026-07-09 16:30:12
+monitor: 41 new trades, 0 paper copies (rules v1)
+pnl: 8 open updated, total -14.54 (blind bench -25.53)
+review: 8 decisions reviewed, 0 rule changes
+report: 2026-07-09 pnl=-14.54
+export: docs/data.json written
+=== 2026-07-09 16:45:36
+monitor: 11 new trades, 0 paper copies (rules v1)
+pnl: 8 open updated, total -5.09 (blind bench 1.21)
+review: 13 decisions reviewed, 0 rule changes
+report: 2026-07-09 pnl=-5.09
+export: docs/data.json written
+=== 2026-07-09 17:00:58
+monitor: 6 new trades, 0 paper copies (rules v1)
+pnl: 8 open updated, total -8.72 (blind bench -4.33)
+review: 38 decisions reviewed, 0 rule changes
+report: 2026-07-09 pnl=-8.72
+export: docs/data.json written
+=== 2026-07-09 17:16:51
+monitor: 16 new trades, 0 paper copies (rules v1)
+pnl: 8 open updated, total 3.06 (blind bench 32.65)
+review: 40 decisions reviewed, 0 rule changes
+report: 2026-07-09 pnl=3.06
+export: docs/data.json written
+=== 2026-07-09 17:32:56
+monitor: 30 new trades, 0 paper copies (rules v1)
+pnl: 8 open updated, total 3.06 (blind bench 43.98)
+review: 41 decisions reviewed, 0 rule changes
+report: 2026-07-09 pnl=3.06
+export: docs/data.json written
+=== 2026-07-09 17:49:00
+monitor: 15 new trades, 0 paper copies (rules v1)
+pnl: 8 open updated, total 2.66 (blind bench 41.50)
+review: 11 decisions reviewed, 0 rule changes
+report: 2026-07-09 pnl=2.66
+export: docs/data.json written
+=== 2026-07-09 18:04:24
+scan: 500 wallets, 50 profiled, 15 tracked
+monitor: 93 new trades, 0 paper copies (rules v1)
+pnl: 8 open updated, total 0.97 (blind bench 62.98)
+review: 6 decisions reviewed, 0 rule changes
+report: 2026-07-09 pnl=0.97
+export: docs/data.json written
+=== 2026-07-09 18:20:42
+monitor: 22 new trades, 0 paper copies (rules v1)
+pnl: 8 open updated, total -0.20 (blind bench 61.81)
+review: 16 decisions reviewed, 0 rule changes
+report: 2026-07-09 pnl=-0.20
+export: docs/data.json written
+=== 2026-07-09 18:36:16
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 23 new trades, 0 paper copies (rules v1)
+pnl: 8 open updated, total -1.77 (blind bench 56.59)
+report: 2026-07-09 pnl=-1.77
+export: docs/data.json written
+=== 2026-07-09 18:51:51
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 15 new trades, 0 paper copies (rules v1)
+pnl: 8 open updated, total -3.93 (blind bench 83.38)
+report: 2026-07-09 pnl=-3.93
+export: docs/data.json written
+=== 2026-07-09 19:07:10
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 16 new trades, 0 paper copies (rules v1)
+pnl: 8 open updated, total -4.13 (blind bench 50.98)
+review: rules v1 -> v2: min_copy_score
+report: 2026-07-09 pnl=-4.13
+export: docs/data.json written
+=== 2026-07-09 19:23:24
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 16 new trades, 0 paper copies (rules v2)
+pnl: 8 open updated, total -5.21 (blind bench 79.69)
+review: rules v2 -> v3: min_copy_score
+report: 2026-07-09 pnl=-5.21
+export: docs/data.json written
+=== 2026-07-09 19:38:45
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 11 new trades, 0 paper copies (rules v3)
+pnl: 8 open updated, total -5.41 (blind bench 569.53)
+review: rules v3 -> v4: min_copy_score
+report: 2026-07-09 pnl=-5.41
+export: docs/data.json written
+=== 2026-07-09 19:54:06
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 23 new trades, 0 paper copies (rules v4)
+pnl: 8 open updated, total -5.41 (blind bench 585.17)
+review: rules v4 -> v5: min_copy_score
+report: 2026-07-09 pnl=-5.41
+export: docs/data.json written
+=== 2026-07-09 20:09:32
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 36 new trades, 0 paper copies (rules v5)
+pnl: 8 open updated, total -6.67 (blind bench 592.19)
+review: rules v5 -> v6: min_copy_score
+report: 2026-07-09 pnl=-6.67
+export: docs/data.json written
+=== 2026-07-09 20:24:56
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 29 new trades, 0 paper copies (rules v6)
+pnl: 8 open updated, total -6.67 (blind bench 570.32)
+review: rules v6 -> v7: min_copy_score
+report: 2026-07-09 pnl=-6.67
+export: docs/data.json written
+=== 2026-07-09 20:40:26
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 43 new trades, 0 paper copies (rules v7)
+pnl: 8 open updated, total -6.67 (blind bench 586.08)
+review: rules v7 -> v8: min_copy_score
+report: 2026-07-09 pnl=-6.67
+export: docs/data.json written
+=== 2026-07-09 20:55:55
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 29 new trades, 0 paper copies (rules v8)
+pnl: 8 open updated, total -6.67 (blind bench 594.42)
+review: rules v8 -> v9: min_copy_score
+report: 2026-07-09 pnl=-6.67
+export: docs/data.json written
+=== 2026-07-09 21:11:30
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 5 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -7.08 (blind bench 645.08)
+report: 2026-07-09 pnl=-7.08
+export: docs/data.json written
+=== 2026-07-09 21:27:08
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 21 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -6.47 (blind bench 643.96)
+report: 2026-07-09 pnl=-6.47
+export: docs/data.json written
+=== 2026-07-09 21:42:31
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 40 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -6.18 (blind bench 539.79)
+report: 2026-07-09 pnl=-6.18
+export: docs/data.json written
+=== 2026-07-09 21:57:52
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 33 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -6.58 (blind bench 479.47)
+report: 2026-07-09 pnl=-6.58
+export: docs/data.json written
+=== 2026-07-09 22:13:12
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 25 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -6.58 (blind bench 484.46)
+report: 2026-07-09 pnl=-6.58
+export: docs/data.json written
+=== 2026-07-09 22:28:26
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 7 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -6.58 (blind bench 487.07)
+report: 2026-07-09 pnl=-6.58
+export: docs/data.json written
+=== 2026-07-09 22:43:59
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 9 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -10.28 (blind bench 480.64)
+report: 2026-07-09 pnl=-10.28
+export: docs/data.json written
+=== 2026-07-09 22:59:54
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 7 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -8.33 (blind bench 474.31)
+report: 2026-07-09 pnl=-8.33
+export: docs/data.json written
+=== 2026-07-09 23:15:45
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 2 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -4.07 (blind bench 485.06)
+report: 2026-07-09 pnl=-4.07
+export: docs/data.json written
+=== 2026-07-09 23:31:25
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 2 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total 1.83 (blind bench 500.64)
+report: 2026-07-09 pnl=1.83
+export: docs/data.json written
+=== 2026-07-09 23:46:36
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 5 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total 2.84 (blind bench 504.97)
+report: 2026-07-09 pnl=2.84
+export: docs/data.json written
+=== 2026-07-10 00:01:46
+monitor: 14 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total 13.60 (blind bench 526.96)
+review: 7 decisions reviewed, 0 rule changes
+report: 2026-07-10 pnl=13.60
+export: docs/data.json written
+=== 2026-07-10 00:16:58
+scan: 500 wallets, 50 profiled, 15 tracked
+monitor: 109 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total 15.34 (blind bench 509.05)
+review: 2 decisions reviewed, 0 rule changes
+report: 2026-07-10 pnl=15.34
+export: docs/data.json written
+=== 2026-07-10 00:33:53
+monitor: 27 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total 15.77 (blind bench 517.47)
+review: 2 decisions reviewed, 0 rule changes
+report: 2026-07-10 pnl=15.77
+export: docs/data.json written
+=== 2026-07-10 00:49:19
+monitor: 10 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total 20.19 (blind bench 522.36)
+review: 5 decisions reviewed, 0 rule changes
+report: 2026-07-10 pnl=20.19
+export: docs/data.json written
+=== 2026-07-10 01:04:32
+monitor: 32 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total 17.49 (blind bench 496.25)
+review: 14 decisions reviewed, 0 rule changes
+report: 2026-07-10 pnl=17.49
+export: docs/data.json written
+=== 2026-07-10 01:19:50
+monitor: 26 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total 19.73 (blind bench 465.36)
+review: 109 decisions reviewed, 0 rule changes
+report: 2026-07-10 pnl=19.73
+export: docs/data.json written
+=== 2026-07-10 01:36:28
+monitor: 15 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total 21.53 (blind bench 398.59)
+review: 27 decisions reviewed, 0 rule changes
+report: 2026-07-10 pnl=21.53
+export: docs/data.json written
+=== 2026-07-10 01:51:51
+monitor: 18 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total 21.66 (blind bench 426.06)
+review: 10 decisions reviewed, 0 rule changes
+report: 2026-07-10 pnl=21.66
+export: docs/data.json written
+=== 2026-07-10 02:07:19
+monitor: 26 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total 20.42 (blind bench 425.01)
+review: 32 decisions reviewed, 0 rule changes
+report: 2026-07-10 pnl=20.42
+export: docs/data.json written
+=== 2026-07-10 02:23:02
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 31 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -4.63 (blind bench 388.26)
+report: 2026-07-10 pnl=-4.63
+export: docs/data.json written
+=== 2026-07-10 02:38:46
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 26 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -8.35 (blind bench 413.36)
+report: 2026-07-10 pnl=-8.35
+export: docs/data.json written
+=== 2026-07-10 02:54:15
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 25 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -10.15 (blind bench 450.89)
+report: 2026-07-10 pnl=-10.15
+export: docs/data.json written
+=== 2026-07-10 03:09:47
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 25 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -10.15 (blind bench 639.40)
+report: 2026-07-10 pnl=-10.15
+export: docs/data.json written
+=== 2026-07-10 03:25:27
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 24 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -6.19 (blind bench 691.61)
+report: 2026-07-10 pnl=-6.19
+export: docs/data.json written
+=== 2026-07-10 03:41:08
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 22 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -2.47 (blind bench 643.90)
+report: 2026-07-10 pnl=-2.47
+export: docs/data.json written
+=== 2026-07-10 03:56:51
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 27 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -0.91 (blind bench 674.82)
+report: 2026-07-10 pnl=-0.91
+export: docs/data.json written
+=== 2026-07-10 04:12:15
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 32 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -10.27 (blind bench 673.86)
+report: 2026-07-10 pnl=-10.27
+export: docs/data.json written
+=== 2026-07-10 04:27:40
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 0 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 819.67)
+report: 2026-07-10 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-10 04:43:03
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 4 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 767.46)
+report: 2026-07-10 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-10 04:58:30
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 1 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 772.22)
+report: 2026-07-10 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-10 05:14:21
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 0 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 762.22)
+report: 2026-07-10 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-10 05:30:15
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 0 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 762.22)
+report: 2026-07-10 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-10 05:45:29
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 1 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 762.22)
+report: 2026-07-10 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-10 06:00:46
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 8 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 762.38)
+report: 2026-07-10 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-10 06:16:12
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 14 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 762.38)
+report: 2026-07-10 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-10 06:31:35
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+scan: 500 wallets, 50 profiled, 15 tracked
+monitor: 221 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 766.70)
+report: 2026-07-10 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-10 06:51:23
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 11 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 766.70)
+report: 2026-07-10 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-10 07:06:41
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 8 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 766.70)
+report: 2026-07-10 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-10 07:22:13
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 21 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 766.85)
+report: 2026-07-10 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-10 07:37:51
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 5 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 767.15)
+report: 2026-07-10 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-10 07:57:18
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 20 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 765.74)
+report: 2026-07-10 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-10 08:12:51
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 5 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 765.18)
+report: 2026-07-10 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-10 08:28:17
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 18 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 765.18)
+report: 2026-07-10 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-10 08:43:58
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 11 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 765.45)
+report: 2026-07-10 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-10 08:59:21
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 6 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 765.45)
+report: 2026-07-10 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-10 09:14:53
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 7 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 767.20)
+report: 2026-07-10 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-10 09:30:12
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 27 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 757.93)
+report: 2026-07-10 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-10 09:45:41
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 16 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 750.47)
+report: 2026-07-10 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-10 10:01:05
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 17 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 752.30)
+report: 2026-07-10 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-10 10:16:26
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 7 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 747.52)
+report: 2026-07-10 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-10 10:31:45
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 4 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 769.39)
+report: 2026-07-10 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-10 10:47:04
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 44 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 1102.86)
+report: 2026-07-10 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-10 11:02:56
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 15 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 1176.17)
+report: 2026-07-10 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-10 11:18:26
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 20 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 1196.65)
+report: 2026-07-10 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-10 11:33:52
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 10 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 1244.37)
+report: 2026-07-10 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-10 11:49:18
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 6 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 1232.65)
+report: 2026-07-10 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-10 12:05:05
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 42 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 1146.05)
+report: 2026-07-10 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-10 12:20:46
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 17 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 1076.21)
+report: 2026-07-10 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-10 12:36:16
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+scan: 500 wallets, 50 profiled, 15 tracked
+monitor: 65 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 969.91)
+report: 2026-07-10 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-10 12:52:13
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 5 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 961.30)
+report: 2026-07-10 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-10 13:07:33
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 7 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 971.37)
+report: 2026-07-10 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-10 13:23:10
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 7 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 1160.61)
+report: 2026-07-10 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-10 13:38:36
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 15 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 1156.71)
+report: 2026-07-10 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-10 13:55:01
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 24 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 1163.66)
+report: 2026-07-10 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-10 14:10:24
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 26 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 1165.24)
+report: 2026-07-10 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-10 14:25:49
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 32 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 1165.25)
+report: 2026-07-10 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-10 14:41:19
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 33 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 1164.38)
+report: 2026-07-10 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-10 14:56:44
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 10 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 1147.49)
+report: 2026-07-10 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-10 15:12:08
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 12 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 1119.92)
+report: 2026-07-10 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-10 15:27:31
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 21 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 1094.23)
+report: 2026-07-10 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-10 15:42:53
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 9 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 1100.00)
+report: 2026-07-10 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-10 15:58:14
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 12 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 1089.47)
+report: 2026-07-10 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-10 16:13:33
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 5 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 1083.73)
+report: 2026-07-10 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-10 16:28:50
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 9 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 1071.12)
+report: 2026-07-10 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-10 16:44:10
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 7 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 1085.21)
+report: 2026-07-10 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-10 16:59:27
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 3 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 1135.04)
+report: 2026-07-10 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-10 17:14:45
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 13 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 1120.24)
+report: 2026-07-10 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-10 17:30:03
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 5 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 1125.99)
+report: 2026-07-10 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-10 17:45:20
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 8 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 1125.63)
+report: 2026-07-10 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-10 18:00:41
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 2 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 1132.53)
+report: 2026-07-10 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-10 18:15:58
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 1 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 1132.73)
+report: 2026-07-10 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-10 18:31:16
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 7 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 1130.76)
+report: 2026-07-10 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-10 18:46:33
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+scan: 500 wallets, 50 profiled, 15 tracked
+monitor: 104 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 1131.83)
+report: 2026-07-10 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-10 19:02:18
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 46 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 1132.46)
+report: 2026-07-10 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-10 19:17:49
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 46 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 1126.67)
+report: 2026-07-10 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-10 19:33:14
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 43 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 1126.88)
+report: 2026-07-10 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-10 19:48:38
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 47 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 1121.35)
+report: 2026-07-10 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-10 20:04:17
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 42 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 1108.82)
+report: 2026-07-10 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-10 20:19:51
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 37 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 1155.45)
+report: 2026-07-10 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-10 20:35:22
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 53 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 969.67)
+report: 2026-07-10 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-10 20:50:48
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 62 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 1082.21)
+report: 2026-07-10 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-10 21:06:16
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 49 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 1111.14)
+report: 2026-07-10 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-10 21:21:46
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 21 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 1077.62)
+report: 2026-07-10 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-10 21:37:35
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 23 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 1103.86)
+report: 2026-07-10 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-10 21:53:40
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 28 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 1119.72)
+report: 2026-07-10 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-10 22:09:57
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 17 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 1145.62)
+report: 2026-07-10 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-10 22:25:59
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 13 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 21086.33)
+report: 2026-07-10 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-10 22:41:29
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 10 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 21085.73)
+report: 2026-07-10 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-10 22:56:53
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 15 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 21083.38)
+report: 2026-07-10 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-10 23:12:19
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 11 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 21086.71)
+report: 2026-07-10 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-10 23:27:43
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 15 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 21080.17)
+report: 2026-07-10 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-10 23:43:08
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 18 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 21080.82)
+report: 2026-07-10 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-10 23:58:27
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 10 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 21068.96)
+report: 2026-07-10 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-11 00:13:46
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 5 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 21078.24)
+report: 2026-07-11 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-11 00:29:04
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 14 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 21008.33)
+report: 2026-07-11 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-11 00:44:24
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 8 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 20940.86)
+report: 2026-07-11 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-11 00:59:43
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+scan: 500 wallets, 50 profiled, 15 tracked
+monitor: 62 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 20979.36)
+report: 2026-07-11 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-11 01:15:54
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 20 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 20980.28)
+report: 2026-07-11 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-11 01:31:13
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 24 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 20996.77)
+report: 2026-07-11 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-11 01:46:36
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 13 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 20979.90)
+report: 2026-07-11 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-11 02:01:58
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 10 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 20964.12)
+report: 2026-07-11 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-11 02:17:56
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 31 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 20963.40)
+report: 2026-07-11 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-11 02:33:29
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 19 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 20953.45)
+report: 2026-07-11 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-11 02:49:05
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 9 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 20952.65)
+report: 2026-07-11 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-11 03:04:26
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 14 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 20941.86)
+report: 2026-07-11 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-11 03:19:46
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 19 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 20910.85)
+report: 2026-07-11 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-11 03:35:15
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 33 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 20952.00)
+report: 2026-07-11 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-11 03:50:53
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 32 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 20956.25)
+report: 2026-07-11 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-11 04:06:18
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 12 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 20941.82)
+report: 2026-07-11 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-11 04:21:38
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 13 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 20996.78)
+report: 2026-07-11 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-11 04:37:01
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 12 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 21017.54)
+report: 2026-07-11 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-11 04:52:37
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 14 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 20976.91)
+report: 2026-07-11 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-11 05:55:39
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 54 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 20963.30)
+report: 2026-07-11 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-11 07:08:24
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+scan: 500 wallets, 50 profiled, 15 tracked
+monitor: 244 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 20949.20)
+report: 2026-07-11 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-11 09:03:09
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 119 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 20952.19)
+report: 2026-07-11 pnl=-13.74
+export: docs/data.json written
+To https://github.com/agik66/hermes-polymarket.git
+ ! [remote rejected] main -> main (cannot lock ref 'refs/heads/main': is at fdfaa06a96eaf3e47d20f6141b8d685377102edc but expected f13ae5ae8797c28c25e5d781e137745a2f5b8b87)
+error: failed to push some refs to 'https://github.com/agik66/hermes-polymarket.git'
+=== 2026-07-11 10:26:25
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 144 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 20930.69)
+report: 2026-07-11 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-11 10:42:17
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 38 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 20976.82)
+report: 2026-07-11 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-11 10:57:39
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 43 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 20976.82)
+report: 2026-07-11 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-11 11:31:33
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 104 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 20976.82)
+report: 2026-07-11 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-11 13:11:55
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+scan: 500 wallets, 50 profiled, 15 tracked
+monitor: 206 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 23587.49)
+report: 2026-07-11 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-11 14:49:05
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 144 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 23338.13)
+report: 2026-07-11 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-11 15:06:09
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 40 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 23391.88)
+report: 2026-07-11 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-11 15:21:32
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 29 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 23391.88)
+report: 2026-07-11 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-11 15:36:55
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 30 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 23391.88)
+report: 2026-07-11 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-11 16:07:59
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 66 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 23391.88)
+report: 2026-07-11 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-11 16:58:40
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 113 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 23547.60)
+report: 2026-07-11 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-11 17:14:28
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 21 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 23665.46)
+report: 2026-07-11 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-11 17:29:57
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 41 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 23646.41)
+report: 2026-07-11 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-11 17:45:21
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 42 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 23646.41)
+report: 2026-07-11 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-11 18:00:44
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 35 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 23646.41)
+report: 2026-07-11 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-11 18:27:29
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 59 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 23538.37)
+report: 2026-07-11 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-11 19:55:38
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+scan: 500 wallets, 50 profiled, 15 tracked
+monitor: 161 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 23505.83)
+report: 2026-07-11 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-11 21:37:47
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 292 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 23527.83)
+report: 2026-07-11 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-11 23:11:35
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 239 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 24237.90)
+report: 2026-07-11 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-12 01:25:56
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 341 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 24115.34)
+report: 2026-07-12 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-12 03:11:29
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+scan: 500 wallets, 50 profiled, 15 tracked
+monitor: 369 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 24080.00)
+report: 2026-07-12 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-12 05:45:39
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 141 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 33393.91)
+report: 2026-07-12 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-12 07:47:36
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 131 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 33404.10)
+report: 2026-07-12 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-12 09:27:41
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+scan: 500 wallets, 50 profiled, 15 tracked
+monitor: 219 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 33384.12)
+report: 2026-07-12 pnl=-13.74
+export: docs/data.json written
+error: RPC failed; curl 56 Recv failure: Operation timed out
+send-pack: unexpected disconnect while reading sideband packet
+fatal: the remote end hung up unexpectedly
+=== 2026-07-12 11:21:20
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 170 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 33434.57)
+report: 2026-07-12 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-12 11:39:29
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 48 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 33417.63)
+report: 2026-07-12 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-12 11:55:02
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 40 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 33417.63)
+report: 2026-07-12 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-12 12:10:30
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 57 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 33417.63)
+report: 2026-07-12 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-12 12:26:02
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 46 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 33417.63)
+report: 2026-07-12 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-12 12:42:36
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 55 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 33365.30)
+report: 2026-07-12 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-12 12:58:17
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 48 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 33351.10)
+report: 2026-07-12 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-12 13:13:53
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 30 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 33659.56)
+report: 2026-07-12 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-12 13:29:28
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 26 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 33581.72)
+report: 2026-07-12 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-12 13:44:59
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 22 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 33557.46)
+report: 2026-07-12 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-12 14:00:30
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 28 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 33478.75)
+report: 2026-07-12 pnl=-13.74
+export: docs/data.json written
+=== 2026-07-12 14:16:02
+ERROR review: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+Traceback (most recent call last):
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 552, in cycle
+    fn()
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 543, in <lambda>
+    ("review", lambda: step_review(c, *get_rules(c))),
+  File "/Users/michalecerik/Developer/hermes-polymarket/bot.py", line 474, in step_review
+    c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 1, and there are 3 supplied.
+monitor: 34 new trades, 0 paper copies (rules v9)
+pnl: 8 open updated, total -13.74 (blind bench 33461.94)
+report: 2026-07-12 pnl=-13.74
+export: docs/data.json written

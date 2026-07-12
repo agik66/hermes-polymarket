@@ -78,7 +78,7 @@ CREATE TABLE IF NOT EXISTS pnl_snapshots(
   id INTEGER PRIMARY KEY, paper_id INT, price REAL, pnl REAL, at INT);
 CREATE TABLE IF NOT EXISTS portfolio_snapshots(
   id INTEGER PRIMARY KEY, at INT, total_pnl REAL, realized REAL, unrealized REAL,
-  open_count INT, blind_pnl REAL);
+  open_count INT, blind_pnl REAL, blind_staked REAL);
 CREATE TABLE IF NOT EXISTS reviews(
   id INTEGER PRIMARY KEY, decision_id INT UNIQUE, at INT, price_now REAL, drift REAL,
   was_good INT, kind TEXT, lesson TEXT);
@@ -99,6 +99,8 @@ def db():
     c = sqlite3.connect(DB)
     c.row_factory = sqlite3.Row
     c.executescript(SCHEMA)
+    try: c.execute("ALTER TABLE portfolio_snapshots ADD COLUMN blind_staked REAL")
+    except sqlite3.OperationalError: pass  # column already there
     return c
 
 def get_rules(c):
@@ -239,7 +241,8 @@ def step_scan(c, rules, depth=500, profile_n=50):
                      resolved_count=?, win_rate=?, last_scanned=? WHERE address=?""",
                   (cons, copy_, p["penalty"], g, p["best_cat"], p["avg_size"],
                    p["trade_count"], p["resolved"], p["win_rate"], now(), r["proxyWallet"]))
-    # statuses: top N above gate = track
+    # statuses: top N above gate = track; previous tracks must re-qualify each scan
+    c.execute("UPDATE wallets SET status='watch', status_reason='dropped out of latest scan top set' WHERE status='track'")
     scored.sort(key=lambda x: -x[1])
     tracked = 0
     for addr, g, cons, copy_, p in scored:
@@ -375,20 +378,23 @@ def step_pnl(c):
             c.execute("INSERT INTO pnl_snapshots(paper_id,price,pnl,at) VALUES(?,?,?,?)",
                       (pt["id"], mid, pnl, now()))
     # blind-copy benchmark: every observed BUY of tracked wallets, $10 at detected price
-    blind = 0.0
+    blind, staked = 0.0, 0.0
     for ot in c.execute("""SELECT ot.* FROM observed_trades ot WHERE ot.side='BUY'""").fetchall():
         pt = c.execute("SELECT cur FROM paper_trades WHERE asset=? AND status IN ('open','closed','resolved') ORDER BY id DESC LIMIT 1",
                        (ot["asset"],)).fetchone()
         rv = c.execute("SELECT price_now FROM reviews r JOIN decisions d ON d.id=r.decision_id WHERE d.observed_id=? ORDER BY r.at DESC LIMIT 1",
                        (ot["id"],)).fetchone()
         cur_price = (pt and pt["cur"]) or (rv and rv["price_now"])
-        if cur_price and ot["detected_price"]:
+        # same price band as the bot: $10 can't realistically fill at 0.0005 either,
+        # and one 20000-share lottery ticket would drown the whole benchmark
+        if cur_price and ot["detected_price"] and 0.05 <= ot["detected_price"] <= 0.92:
             blind += paper_pnl(ot["detected_price"], cur_price, 10.0)
+            staked += 10.0
     tot = c.execute("""SELECT COALESCE(SUM(CASE WHEN status='open' THEN unreal ELSE 0 END),0) u,
                               COALESCE(SUM(COALESCE(real,0)),0) r,
                               SUM(CASE WHEN status='open' THEN 1 ELSE 0 END) o FROM paper_trades""").fetchone()
-    c.execute("INSERT INTO portfolio_snapshots(at,total_pnl,realized,unrealized,open_count,blind_pnl) VALUES(?,?,?,?,?,?)",
-              (now(), round(tot["u"] + tot["r"], 4), round(tot["r"], 4), round(tot["u"], 4), tot["o"] or 0, round(blind, 4)))
+    c.execute("INSERT INTO portfolio_snapshots(at,total_pnl,realized,unrealized,open_count,blind_pnl,blind_staked) VALUES(?,?,?,?,?,?,?)",
+              (now(), round(tot["u"] + tot["r"], 4), round(tot["r"], 4), round(tot["u"], 4), tot["o"] or 0, round(blind, 4), staked))
     c.commit()
     print("pnl: %d open updated, total %.2f (blind bench %.2f)" % (len(open_pts), tot["u"] + tot["r"], blind))
 
@@ -429,9 +435,13 @@ def step_review(c, rules, rv):
     c.commit()
 
     # ---- learning: evidence-driven threshold updates (the bot's "learning" core)
+    # only evidence newer than the active ruleset counts, otherwise the same
+    # reviews re-trigger the same change every cycle (runaway threshold walk)
     changes = []
+    rs_created = c.execute("SELECT created FROM rulesets WHERE active=1").fetchone()["created"]
     rows = c.execute("""SELECT d.*, r.drift rdrift, r.kind FROM decisions d
-                        JOIN reviews r ON r.decision_id=d.id WHERE r.kind!='unpriced'""").fetchall()
+                        JOIN reviews r ON r.decision_id=d.id
+                        WHERE r.kind!='unpriced' AND r.at > ?""", (rs_created,)).fetchall()
     copies = [x for x in rows if x["decision"] == "paper_copy"]
     def avg(xs): return sum(xs) / len(xs)
     hs = [x["rdrift"] for x in copies if (x["spread"] or 0) > 0.6 * rules["max_spread"]]
@@ -471,8 +481,8 @@ def step_review(c, rules, rv):
     # wallet downgrades on bad paper performance
     for w in c.execute("SELECT wallet, AVG(COALESCE(real,unreal)) p, COUNT(*) n FROM paper_trades GROUP BY wallet").fetchall():
         if w["n"] >= 3 and w["p"] < -0.5:
-            c.execute("UPDATE wallets SET status='watch', status_reason='downgraded: avg paper pnl %.2f over %d copies' WHERE address=? AND status='track'",
-                      (w["p"], w["n"], w["wallet"]))
+            c.execute("UPDATE wallets SET status='watch', status_reason=? WHERE address=? AND status='track'",
+                      ("downgraded: avg paper pnl %.2f over %d copies" % (w["p"], w["n"]), w["wallet"]))
     c.commit()
     print("review: %d decisions reviewed, %d rule changes" % (len(pend), len(changes)))
 

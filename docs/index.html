@@ -63,7 +63,7 @@ a{color:var(--s1)}
   <h2>Paper PnL over time — bot-filtered vs blind copy benchmark</h2>
   <div class="legend">
     <span><span class="sw" style="background:var(--s1)"></span>Bot-filtered strategy</span>
-    <span><span class="sw" style="background:var(--s2)"></span>Blind copy of tracked wallets ($10/trade)</span>
+    <span><span class="sw" style="background:var(--s2)"></span>Blind copy benchmark (PnL per $100 staked)</span>
   </div>
   <div id="chart"></div>
 </div>
@@ -97,7 +97,7 @@ fetch('data.json?_='+Date.now()).then(r=>r.json()).then(D=>{
   const tiles=[
     ['Paper bankroll → $'+goal,usd(eq),pnlCls(last.total_pnl),`${(100*eq/goal).toFixed(1)}% of target · started $${D.rules.bankroll_start||100}`],
     ['Total paper PnL',usd(last.total_pnl),pnlCls(last.total_pnl),`realized ${usd(last.realized)} · unrealized ${usd(last.unrealized)}`],
-    ['vs blind copy',usd((last.total_pnl||0)-(last.blind_pnl||0)),pnlCls((last.total_pnl||0)-(last.blind_pnl||0)),`benchmark ${usd(last.blind_pnl)}`],
+    ['vs blind copy',(()=>{const b=last.blind_staked>0?last.blind_pnl*100/last.blind_staked:null;const d=b==null?null:(last.total_pnl||0)-b;return d==null?'–':usd(d)})(),pnlCls(last.blind_staked>0?(last.total_pnl||0)-last.blind_pnl*100/last.blind_staked:0),`benchmark ${last.blind_staked>0?usd(last.blind_pnl*100/last.blind_staked):'–'} / $100 staked`],
     ['Win rate',resolved.length?fmt(100*wins.length/resolved.length,0)+'%':'–','',`${wins.length}/${resolved.length} resolved`],
     ['Open positions',last.open_count??0,'',''],
     ['Tracked wallets',D.wallets.filter(w=>w.status==='track').length,'',`of ${(D.leaderboard_size||{}).wallet_count||'–'} scanned`],
@@ -150,19 +150,24 @@ function table(head,rows,numCols=[]){
 function drawChart(snaps){
   if(snaps.length<1){$('#chart').innerHTML='<div class="small">No snapshots yet.</div>';return}
   const W=Math.min(1140,document.body.clientWidth-60),H=220,P={l:44,r:14,t:10,b:22};
-  const xs=snaps.map(s=>s.at), ys=snaps.flatMap(s=>[s.total_pnl,s.blind_pnl??0]);
+  snaps.forEach(s=>{s.blind100=s.blind_staked>0?s.blind_pnl*100/s.blind_staked:null});
+  const xs=snaps.map(s=>s.at), ys=snaps.flatMap(s=>[s.total_pnl,s.blind100??0]);
   const x0=Math.min(...xs),x1=Math.max(...xs,x0+1),lo=Math.min(0,...ys),hi=Math.max(0.5,...ys);
   const X=t=>P.l+(W-P.l-P.r)*(t-x0)/(x1-x0), Y=v=>P.t+(H-P.t-P.b)*(1-(v-lo)/(hi-lo));
-  const line=(key,color)=>snaps.length===1
-    ?`<circle cx="${X(xs[0])}" cy="${Y(snaps[0][key]??0)}" r="4" fill="${color}"/>`
-    :`<path d="${snaps.map((s,i)=>(i?'L':'M')+X(s.at).toFixed(1)+' '+Y(s[key]??0).toFixed(1)).join('')}" fill="none" stroke="${color}" stroke-width="2" stroke-linejoin="round"/>`;
+  const line=(key,color)=>{
+    const pts2=snaps.filter(s=>s[key]!=null);
+    if(!pts2.length)return'';
+    return pts2.length===1
+      ?`<circle cx="${X(pts2[0].at)}" cy="${Y(pts2[0][key])}" r="4" fill="${color}"/>`
+      :`<path d="${pts2.map((s,i)=>(i?'L':'M')+X(s.at).toFixed(1)+' '+Y(s[key]).toFixed(1)).join('')}" fill="none" stroke="${color}" stroke-width="2" stroke-linejoin="round"/>`;
+  };
   const gridY=[...Array(4)].map((_,i)=>lo+(hi-lo)*i/3);
   $('#chart').innerHTML=`<svg id="svg" width="${W}" height="${H}" role="img" aria-label="Paper PnL over time">
     ${gridY.map(v=>`<line x1="${P.l}" x2="${W-P.r}" y1="${Y(v)}" y2="${Y(v)}" stroke="var(--grid)"/>
       <text x="${P.l-6}" y="${Y(v)+4}" text-anchor="end">${v.toFixed(1)}</text>`).join('')}
     <line x1="${P.l}" x2="${W-P.r}" y1="${Y(0)}" y2="${Y(0)}" stroke="var(--axis)"/>
     <text x="${P.l}" y="${H-6}">${ts(x0)}</text><text x="${W-P.r}" y="${H-6}" text-anchor="end">${ts(x1)}</text>
-    ${line('blind_pnl','var(--s2)')}${line('total_pnl','var(--s1)')}
+    ${line('blind100','var(--s2)')}${line('total_pnl','var(--s1)')}
     <line id="cross" y1="${P.t}" y2="${H-P.b}" stroke="var(--axis)" stroke-dasharray="3 3" visibility="hidden"/>
   </svg>`;
   const svg=$('#svg'),tt=$('#tt'),cross=$('#cross');
@@ -171,7 +176,7 @@ function drawChart(snaps){
     let best=0,bd=1e12;snaps.forEach((s,i)=>{const d=Math.abs(X(s.at)-mx);if(d<bd){bd=d;best=i}});
     const s=snaps[best];cross.setAttribute('x1',X(s.at));cross.setAttribute('x2',X(s.at));cross.setAttribute('visibility','visible');
     tt.style.display='block';tt.style.left=(e.clientX+14)+'px';tt.style.top=(e.clientY-10)+'px';
-    tt.innerHTML=`${ts(s.at)} UTC<br>bot: <b class="${pnlCls(s.total_pnl)}">${usd(s.total_pnl)}</b> · blind: ${usd(s.blind_pnl)}<br>open: ${s.open_count}`;
+    tt.innerHTML=`${ts(s.at)} UTC<br>bot: <b class="${pnlCls(s.total_pnl)}">${usd(s.total_pnl)}</b> · blind/$100: ${s.blind100==null?'–':usd(s.blind100)}<br>open: ${s.open_count}`;
   };
   svg.onmouseleave=()=>{tt.style.display='none';cross.setAttribute('visibility','hidden')};
 }
