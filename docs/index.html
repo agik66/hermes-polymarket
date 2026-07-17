@@ -115,8 +115,8 @@ fetch('data.json?_='+Date.now()).then(r=>r.json()).then(D=>{
 
   // tabs
   const panes={
-    'Wallet Rankings':()=>table(['#','Wallet','Status','Score','ROI 30d','Win rate','Resolved','1-hit pen.','Avg size','Trades 30d','Category','Why'],
-      D.wallets.map(w=>[w.source_rank,addr(w.address),pill(w.status),fmt(w.global_score,0),fmt(100*w.roi30d,1)+'%',fmt(100*w.win_rate,0)+'%',w.resolved_count,fmt(w.one_hit_penalty,2),usd(w.avg_trade_size),w.trade_count_30d,esc(w.best_category),`<span class="small">${esc(w.status_reason)}</span>`]),[0,3,4,5,6,7,8,9]),
+    'Wallet Rankings':()=>table(['#','Wallet','Status','Score','ROI 30d','Wins','1-hit pen.','Avg size','Trades 30d','Category','Why'],
+      D.wallets.map(w=>[w.source_rank,addr(w.address),pill(w.status),fmt(w.global_score,0),fmt(100*w.roi30d,1)+'%',w.resolved_count,fmt(w.one_hit_penalty,2),usd(w.avg_trade_size),w.trade_count_30d,esc(w.best_category),`<span class="small">${esc(w.status_reason)}</span>`]),[0,3,4,5,6,7,8]),
     'Trade Signals':()=>table(['When','Wallet','Market','Side','Wallet px','Detected px','Score','Decision','Reasons'],
       D.signals.map(s=>[ts(s.created),addr(s.wallet),esc(s.question),esc(s.outcome),fmt(s.wallet_price,3),fmt(s.detected_price,3),fmt(s.score,0),pill(s.decision),`<span class="small">${JSON.parse(s.reasons||'[]').map(esc).join('; ')}</span>`]),[4,5,6]),
     'Paper Trades':()=>table(['Opened','Market','Side','Entry','Current','Size','PnL','Status','Reason'],
