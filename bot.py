@@ -29,9 +29,11 @@ DEFAULT_RULES = {
     "min_wallet_trade_usd": 100.0,
     "min_hours_to_resolution": 1.0,
     "max_days_to_resolution": 30.0,
-    "size_min": 5.0,
+    "size_min": 1.0,
     "bankroll_start": 100.0, "target": 1000.0,   # paper bankroll: grow $100 -> $1000
-    "risk_min": 0.05, "risk_max": 0.15,          # fraction of equity per trade by confidence
+    "risk_min": 0.01, "risk_max": 0.02,          # fraction of equity per trade by confidence
+    "max_daily_loss": 0.05,        # kill-switch: no new copies once equity -5% on the day
+    "max_open_per_category": 2,    # correlated-market cap (e.g. several MLB games same day)
     "min_entry_price": 0.05, "max_entry_price": 0.92,  # no lottery tickets, no near-certainties
     "w_roi": 0.35, "w_consistency": 0.35, "w_copyability": 0.30,
 }
@@ -121,9 +123,12 @@ def one_hit_penalty(position_pnls):
     if not pos: return 1.0
     return max(pos) / sum(pos)
 
-def score_wallet(roi, win_rate, resolved_count, penalty, avg_size, trade_count, rules):
+def score_wallet(roi, resolved_count, penalty, avg_size, trade_count, rules):
+    # no win_rate input: the public feeds can't produce an unbiased one (redeems cap
+    # at 500 rows and old losers vanish from positions), so consistency = many
+    # realized wins spread across positions rather than one big hit
     roi_n = clamp(roi / 0.3)
-    consistency = clamp(win_rate * (1 - 0.7 * penalty) * clamp(resolved_count / 10))
+    consistency = clamp((1 - 0.7 * penalty) * clamp(resolved_count / 10))
     # copyability: enough activity, human-copyable sizes, not one-hit
     freq = clamp(trade_count / 30)                     # ~1 trade/day is plenty
     size_n = 1.0 if 50 <= avg_size <= 20000 else (0.5 if avg_size < 50 else 0.3)
@@ -181,6 +186,23 @@ def paper_pnl(entry, cur, size):
     shares = size / entry if entry > 0 else 0
     return round((cur - entry) * shares, 4)
 
+def fill_price(mid, spread, side, liquidity=0):
+    """Realistic paper fill: BUY crosses to the ask, SELL to the bid, +1c on thin books.
+    Unknown spread assumed 0.02 (conservative)."""
+    half = (spread if spread is not None else 0.02) / 2
+    slip = 0.01 if (liquidity or 0) < 20000 else 0.0
+    px = mid + half + slip if side == "BUY" else mid - half - slip
+    return clamp(px, 0.001, 0.999)
+
+def daily_stop_hit(c, rules):
+    """True once equity is down max_daily_loss vs the day's starting equity."""
+    day0 = int(datetime.now(timezone.utc).replace(hour=0, minute=0, second=0, microsecond=0).timestamp())
+    ref = c.execute("SELECT total_pnl FROM portfolio_snapshots WHERE at<? ORDER BY at DESC LIMIT 1",
+                    (day0,)).fetchone()
+    eq_start = rules["bankroll_start"] + (ref["total_pnl"] if ref else 0.0)
+    eq_now, _ = bankroll(c, rules)
+    return eq_start > 0 and eq_now <= eq_start * (1 - rules["max_daily_loss"])
+
 # ---------------------------------------------------------------- steps
 def step_scan(c, rules, depth=500, profile_n=50):
     """Leaderboard scan + wallet profiling. Profiles top `profile_n` of `depth` scanned
@@ -204,26 +226,22 @@ def step_scan(c, rules, depth=500, profile_n=50):
     c.commit()
 
     def profile(addr):
-        # positions drop redeemed winners, so wins come from REDEEM activity instead
-        pos = http("%s/positions?user=%s&limit=500" % (DATA_API, addr))
+        # positions drop redeemed winners, so realized wins come from REDEEM activity.
+        # No win_rate: the feeds cap at 500 rows and old losers vanish from positions,
+        # so any win_rate computed here skews toward 1.0 for whales (AUDIT.md P2).
         red = http("%s/activity?user=%s&type=REDEEM&limit=500" % (DATA_API, addr))
         tr = http("%s/trades?user=%s&limit=200" % (DATA_API, addr))
         cutoff = now() - 30 * 86400
         tr30 = [t for t in tr if t.get("timestamp", 0) >= cutoff]
         red30 = [x for x in red if x.get("timestamp", 0) >= cutoff]
         win_usdc = [x.get("usdcSize", 0) for x in red30 if x.get("usdcSize", 0) > 0]
-        # ponytail: both feeds cap at 500 rows -> win_rate skews high for whales;
-        # ranking still discriminates via penalty/roi/activity, and the paper-trade
-        # review loop downgrades wallets that don't perform when copied.
-        losers = [p for p in pos if p.get("curPrice", 0.5) <= 0.02 and not p.get("redeemable")]
-        wins, resolved = len(win_usdc), len(win_usdc) + len(losers)
         sizes = [t["size"] * t["price"] for t in tr30 if t.get("size") and t.get("price")]
         cats = {}
         for t in tr30:
             k = (t.get("eventSlug") or "other").split("-")[0]
             cats[k] = cats.get(k, 0) + 1
         return dict(address=addr, penalty=round(one_hit_penalty(win_usdc), 3),
-                    resolved=resolved, win_rate=round(wins / resolved, 3) if resolved else 0,
+                    resolved=len(win_usdc),
                     avg_size=round(sum(sizes) / len(sizes), 2) if sizes else 0,
                     trade_count=len(tr30), best_cat=max(cats, key=cats.get) if cats else "")
 
@@ -233,33 +251,34 @@ def step_scan(c, rules, depth=500, profile_n=50):
     scored = []
     for r, p in zip(top, profiles):
         roi = (r.get("pnl", 0) / r["vol"]) if r.get("vol") else 0
-        g, cons, copy_ = score_wallet(roi, p["win_rate"], p["resolved"], p["penalty"],
+        g, cons, copy_ = score_wallet(roi, p["resolved"], p["penalty"],
                                       p["avg_size"], p["trade_count"], rules)
         scored.append((r["proxyWallet"], g, cons, copy_, p))
         c.execute("""UPDATE wallets SET consistency=?, copyability=?, one_hit_penalty=?,
                      global_score=?, best_category=?, avg_trade_size=?, trade_count_30d=?,
-                     resolved_count=?, win_rate=?, last_scanned=? WHERE address=?""",
+                     resolved_count=?, win_rate=NULL, last_scanned=? WHERE address=?""",
                   (cons, copy_, p["penalty"], g, p["best_cat"], p["avg_size"],
-                   p["trade_count"], p["resolved"], p["win_rate"], now(), r["proxyWallet"]))
+                   p["trade_count"], p["resolved"], now(), r["proxyWallet"]))
     # statuses: top N above gate = track; previous tracks must re-qualify each scan
     c.execute("UPDATE wallets SET status='watch', status_reason='dropped out of latest scan top set' WHERE status='track'")
     scored.sort(key=lambda x: -x[1])
     tracked = 0
     for addr, g, cons, copy_, p in scored:
         if g >= rules["min_global_score"] and p["resolved"] >= 5 and tracked < rules["track_top_n"]:
-            st, why = "track", "score %.0f, win rate %.0f%% on %d resolved, penalty %.2f" % (
-                g, p["win_rate"] * 100, p["resolved"], p["penalty"])
+            st, why = "track", "score %.0f, %d realized wins, penalty %.2f" % (g, p["resolved"], p["penalty"])
             tracked += 1
         elif g >= 40:
-            st, why = "watch", "score %.0f below gate %.0f or <5 resolved" % (g, rules["min_global_score"])
+            st, why = "watch", "score %.0f below gate %.0f or <5 realized wins" % (g, rules["min_global_score"])
         else:
-            st, why = "ignore", "score %.0f: penalty %.2f, win rate %.0f%%" % (g, p["penalty"], p["win_rate"] * 100)
+            st, why = "ignore", "score %.0f: penalty %.2f, %d realized wins" % (g, p["penalty"], p["resolved"])
         c.execute("UPDATE wallets SET status=?, status_reason=? WHERE address=?", (st, why, addr))
     c.commit()
     print("scan: %d wallets, %d profiled, %d tracked" % (len(rows), len(profiles), tracked))
 
 def market_info(condition_id):
     m = http("%s/markets?condition_ids=%s" % (GAMMA, condition_id))
+    if not m:  # gamma omits closed markets unless asked explicitly
+        m = http("%s/markets?condition_ids=%s&closed=true" % (GAMMA, condition_id))
     if not m: return None
     m = m[0]
     end = m.get("endDate")
@@ -296,9 +315,12 @@ def step_monitor(c, rules, rv):
                                     (addr, asset)).fetchone()
                 if open_pt:
                     mid = midpoint(asset) or open_pt["cur"] or open_pt["entry"]
-                    pnl = paper_pnl(open_pt["entry"], mid, open_pt["size"])
+                    try: minfo = market_info(t["conditionId"]) if t.get("conditionId") else None
+                    except Exception: minfo = None
+                    px = fill_price(mid, minfo and minfo["spread"], "SELL", minfo and minfo["liquidity"])
+                    pnl = paper_pnl(open_pt["entry"], px, open_pt["size"])
                     c.execute("UPDATE paper_trades SET status='closed', cur=?, real=?, closed=?, reason=reason||' | closed: wallet exited' WHERE id=?",
-                              (mid, pnl, now(), open_pt["id"]))
+                              (px, pnl, now(), open_pt["id"]))
                 continue
             if side != "BUY": continue
             size_usd = (t.get("size") or 0) * (t.get("price") or 0)
@@ -308,7 +330,7 @@ def step_monitor(c, rules, rv):
             cur = c.execute("""INSERT OR IGNORE INTO observed_trades
                 (wallet,condition_id,asset,question,category,outcome,outcome_index,side,
                  wallet_price,detected_price,size_usd,ts,created) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)""",
-                (addr, t.get("conditionId"), asset, t.get("title"), (t.get("eventSlug") or "").split("-")[0],
+                (addr, t.get("conditionId"), asset, t.get("title"), (t.get("eventSlug") or "other").split("-")[0],
                  t.get("outcome"), t.get("outcomeIndex"), side, t.get("price"), detected, size_usd, ts, now()))
             if cur.rowcount == 0: continue
             oid = cur.lastrowid
@@ -326,15 +348,29 @@ def step_monitor(c, rules, rv):
                 if fail:
                     dec, reasons, sz = "skip", [fail], 0
                 elif score >= rules["min_copy_score"]:
+                    cat = (t.get("eventSlug") or "other").split("-")[0]
+                    n_cat = c.execute("""SELECT COUNT(DISTINCT pt.id) n FROM paper_trades pt
+                        JOIN observed_trades o2 ON o2.condition_id=pt.condition_id
+                        WHERE pt.status='open' AND o2.category=?""", (cat,)).fetchone()["n"]
                     eq, cash = bankroll(c, rules)
-                    sz = position_size(score, rules, eq, cash)
-                    dec = "paper_copy" if sz > 0 else "skip"
-                    if sz <= 0:
-                        reasons = ["insufficient paper cash ($%.2f) for min stake" % cash]
+                    if daily_stop_hit(c, rules):
+                        dec, sz = "skip", 0
+                        reasons = ["daily stop: equity down >%.0f%% today, no new copies" % (100 * rules["max_daily_loss"])]
+                    elif n_cat >= rules["max_open_per_category"]:
+                        dec, sz = "skip", 0
+                        reasons = ["category '%s' cap: %d positions already open (correlated risk)" % (cat, n_cat)]
+                    elif (entry := fill_price(mid, info["spread"], "BUY", info["liquidity"])) > rules["max_entry_price"]:
+                        dec, sz = "skip", 0
+                        reasons = ["fill price %.3f (ask+slip) outside copyable band" % entry]
                     else:
-                        reasons = ["wallet %s score %.0f" % (w["label"][:16], w["global_score"] or 0),
-                               "copy score %.0f >= gate %.0f" % (score, rules["min_copy_score"]),
-                               "spread %.3f, liq $%.0fk, drift %+.3f" % (info["spread"], info["liquidity"] / 1000, drift)]
+                        sz = position_size(score, rules, eq, cash)
+                        dec = "paper_copy" if sz > 0 else "skip"
+                        if sz <= 0:
+                            reasons = ["insufficient paper cash ($%.2f) for min stake" % cash]
+                        else:
+                            reasons = ["wallet %s score %.0f" % (w["label"][:16], w["global_score"] or 0),
+                                   "copy score %.0f >= gate %.0f" % (score, rules["min_copy_score"]),
+                                   "spread %.3f, liq $%.0fk, drift %+.3f" % (info["spread"], info["liquidity"] / 1000, drift)]
                 else:
                     dec, sz = "watchlist", 0
                     reasons = ["score %.0f below gate %.0f" % (score, rules["min_copy_score"])]
@@ -347,12 +383,13 @@ def step_monitor(c, rules, rv):
                  mid - t["price"] if mid else None, info and info["hours_to_res"], now()))
             if dec == "paper_copy":
                 n_copy += 1
-                shares = sz / mid
+                # entry set above: fill at the ask, not the midpoint (half-spread + thin-book cost)
+                shares = sz / entry
                 c.execute("""INSERT INTO paper_trades(decision_id,wallet,condition_id,asset,question,
                     outcome,outcome_index,side,entry,cur,size,shares,status,reason,opened)
                     VALUES(?,?,?,?,?,?,?,?,?,?,?,?,'open',?,?)""",
                     (cur.lastrowid, addr, t.get("conditionId"), asset, t.get("title"), t.get("outcome"),
-                     t.get("outcomeIndex"), "BUY", mid, mid, sz, shares, "; ".join(reasons), now()))
+                     t.get("outcomeIndex"), "BUY", entry, mid, sz, shares, "; ".join(reasons), now()))
         c.commit()
     print("monitor: %d new trades, %d paper copies (rules v%d)" % (n_new, n_copy, rv))
 
@@ -406,78 +443,74 @@ def step_pnl(c):
     c.commit()
     print("pnl: %d open updated, total %.2f (blind bench %.2f)" % (len(open_pts), tot["u"] + tot["r"], blind))
 
-def step_review(c, rules, rv):
-    """Judge decisions >=1h old; extract lessons; auto-update rules with evidence."""
-    pend = c.execute("""SELECT d.*, ot.asset, ot.detected_price FROM decisions d
-        JOIN observed_trades ot ON ot.id=d.observed_id
-        LEFT JOIN reviews r ON r.decision_id=d.id
-        WHERE r.id IS NULL AND d.created <= ?""", (now() - 3600,)).fetchall()
-    for d in pend:
-        price = midpoint(d["asset"])
-        if price is None:
-            ot = c.execute("SELECT condition_id, outcome_index FROM observed_trades WHERE id=?",
-                           (d["observed_id"],)).fetchone()
-            try: info = market_info(ot["condition_id"])
-            except Exception: info = None
-            oi = ot["outcome_index"]
-            if info and info["prices"] and oi is not None and oi < len(info["prices"]):
-                price = float(info["prices"][oi])
-            elif info is None or info["closed"]:
-                # dead market with no final price: mark unpriced so it never retries
-                c.execute("INSERT OR IGNORE INTO reviews(decision_id,at,price_now,drift,was_good,kind,lesson) VALUES(?,?,NULL,NULL,NULL,'unpriced','market closed, no final price available')",
-                          (d["id"], now()))
-                continue
-        if price is None: continue
-        drift = price - (d["detected_price"] or price)
-        if d["decision"] == "paper_copy":
-            good, kind = (1 if drift > 0 else 0), ("good_copy" if drift > 0 else "bad_copy")
-            lesson = "copied at %.3f, now %.3f" % (d["detected_price"], price)
-        elif drift > 0.03:
-            good, kind, lesson = 0, "missed_winner", "skipped/watched, price rose %.3f->%.3f" % (d["detected_price"], price)
-        elif drift < -0.03:
-            good, kind, lesson = 1, "avoided_loser", "stayed out, price fell %.3f->%.3f" % (d["detected_price"], price)
-        else:
-            good, kind, lesson = 1, "neutral", "price flat since decision"
-        c.execute("INSERT OR IGNORE INTO reviews(decision_id,at,price_now,drift,was_good,kind,lesson) VALUES(?,?,?,?,?,?,?)",
-                  (d["id"], now(), price, round(drift, 4), good, kind, lesson))
-    c.commit()
+def learn_rules(c, rules, rv):
+    """Learning v2: evidence = realized PnL of RESOLVED paper copies only.
+    Entries already paid ask + slippage, so returns are net of costs. The old
+    loop judged by 1h price drift = symmetric noise and ratcheted the gate to
+    its floor (AUDIT.md P0). Learned keys: copy gate, sizing, spread/liquidity.
 
-    # ---- learning: evidence-driven threshold updates (the bot's "learning" core)
-    # only evidence newer than the active ruleset counts, otherwise the same
-    # reviews re-trigger the same change every cycle (runaway threshold walk)
+    Anti-overfitting guardrails:
+      - MIN_N resolved samples per rule
+      - evidence recency: per key, only trades resolved AFTER that key's last
+        change count — the same stale rows can never re-trigger a change
+      - split-half agreement: older AND newer half of the evidence must agree
+        in sign with the whole. This is a sign-consistency check, not a formal
+        significance test — correlated loss bursts (one bad sports weekend) can
+        pass it; cooldown + bounds + small steps limit the blast radius.
+      - bounded step per change + hard bounds per key (no runaway)
+      - one change per key per 7 days (no per-cycle ratcheting)
+    """
+    MIN_N, COOLDOWN = 20, 7 * 86400
+    BOUNDS = {"min_copy_score": (55.0, 80.0), "risk_max": (0.01, 0.03),
+              "min_liquidity": (5000.0, 50000.0), "max_spread": (0.015, 0.05)}
+    rows = c.execute("""SELECT pt.real, pt.size, pt.closed, d.score, d.spread, d.liquidity
+                        FROM paper_trades pt JOIN decisions d ON d.id=pt.decision_id
+                        WHERE pt.status IN ('resolved','closed') AND pt.real IS NOT NULL
+                          AND pt.size > 0 ORDER BY pt.closed""").fetchall()
+    def last_change(k):
+        return c.execute("SELECT MAX(created) m FROM rule_changes WHERE key=?", (k,)).fetchone()["m"] or 0
+    def fresh(k):
+        t0 = last_change(k)
+        return [x for x in rows if (x["closed"] or 0) > t0]
+    def rets(rs): return [x["real"] / x["size"] for x in rs]
+    def mean(v): return sum(v) / len(v)
+    def solid(vals, sign):
+        """Enough samples and both time-halves agree in direction with the whole."""
+        if len(vals) < MIN_N: return False
+        h = len(vals) // 2
+        return all(sign * mean(v) > 0 for v in (vals, vals[:h], vals[h:]))
+    gate_rows = fresh("min_copy_score")
+    allr = rets(fresh("risk_max"))
+    allg = rets(gate_rows)
+    near = rets([x for x in gate_rows if (x["score"] or 0) < rules["min_copy_score"] + 5])
+    hs = rets([x for x in fresh("max_spread") if (x["spread"] or 0) > 0.6 * rules["max_spread"]])
+    ll = rets([x for x in fresh("min_liquidity") if (x["liquidity"] or 0) < 2 * rules["min_liquidity"]])
     changes = []
-    rs_created = c.execute("SELECT created FROM rulesets WHERE active=1").fetchone()["created"]
-    rows = c.execute("""SELECT d.*, r.drift rdrift, r.kind FROM decisions d
-                        JOIN reviews r ON r.decision_id=d.id
-                        WHERE r.kind!='unpriced' AND r.at > ?""", (rs_created,)).fetchall()
-    copies = [x for x in rows if x["decision"] == "paper_copy"]
-    def avg(xs): return sum(xs) / len(xs)
-    hs = [x["rdrift"] for x in copies if (x["spread"] or 0) > 0.6 * rules["max_spread"]]
-    if len(hs) >= 3 and avg(hs) < 0:
-        changes.append(("max_spread", rules["max_spread"], round(rules["max_spread"] * 0.85, 4),
-                        "high-spread copies losing", "%d trades, avg drift %.3f" % (len(hs), avg(hs))))
-    ll = [x["rdrift"] for x in copies if (x["liquidity"] or 0) < 2 * rules["min_liquidity"]]
-    if len(ll) >= 3 and avg(ll) < 0:
-        changes.append(("min_liquidity", rules["min_liquidity"], round(rules["min_liquidity"] * 1.3, 0),
-                        "low-liquidity copies losing", "%d trades, avg drift %.3f" % (len(ll), avg(ll))))
-    lt = [x["rdrift"] for x in copies if (x["drift"] or 0) > 0.6 * rules["max_drift"]]
-    if len(lt) >= 3 and avg(lt) < 0:
-        changes.append(("max_drift", rules["max_drift"], round(rules["max_drift"] * 0.85, 4),
-                        "late entries losing", "%d trades, avg drift %.3f" % (len(lt), avg(lt))))
-    missed = [x for x in rows if x["kind"] == "missed_winner" and x["score"] and x["score"] >= rules["min_copy_score"] - 10]
-    if len(missed) >= 3 and rules["min_copy_score"] > 45:
-        changes.append(("min_copy_score", rules["min_copy_score"], round(rules["min_copy_score"] - 2, 1),
-                        "missing winners just under the gate", "%d near-miss winners" % len(missed)))
-    if len(copies) >= 5 and avg([x["rdrift"] for x in copies]) < -0.01 and rules["min_copy_score"] < 80:
-        changes.append(("min_copy_score", rules["min_copy_score"], round(rules["min_copy_score"] + 3, 1),
-                        "copies losing overall, tighten gate", "%d copies, avg drift %.3f" % (len(copies), avg([x["rdrift"] for x in copies]))))
-    if changes:
-        merged = dict(rules)
-        seen = set()
-        applied = []
-        for k, before, after, reason, ev in changes:
-            if k in seen: continue  # one change per key per run
-            seen.add(k); merged[k] = after; applied.append((k, before, after, reason, ev))
+    if solid(near, -1):
+        changes.append(("min_copy_score", rules["min_copy_score"] + 2,
+                        "near-gate copies losing on resolution", "%d resolved, mean %.3f" % (len(near), mean(near))))
+    elif solid(allg, +1):
+        changes.append(("min_copy_score", rules["min_copy_score"] - 2,
+                        "resolved copies profitable net of costs, widen gate", "%d resolved, mean %.3f" % (len(allg), mean(allg))))
+    if solid(allr, +1):
+        changes.append(("risk_max", rules["risk_max"] + 0.0025,
+                        "resolved copies profitable, size up slightly", "%d resolved, mean %.3f" % (len(allr), mean(allr))))
+    elif solid(allr, -1):
+        changes.append(("risk_max", rules["risk_max"] - 0.0025,
+                        "resolved copies losing, size down", "%d resolved, mean %.3f" % (len(allr), mean(allr))))
+    if solid(hs, -1):
+        changes.append(("max_spread", rules["max_spread"] * 0.9,
+                        "high-spread copies losing on resolution", "%d resolved, mean %.3f" % (len(hs), mean(hs))))
+    if solid(ll, -1):
+        changes.append(("min_liquidity", rules["min_liquidity"] * 1.2,
+                        "low-liquidity copies losing on resolution", "%d resolved, mean %.3f" % (len(ll), mean(ll))))
+    applied, merged = [], dict(rules)
+    for k, target, reason, ev in changes:
+        if now() - last_change(k) < COOLDOWN: continue
+        after = round(clamp(target, *BOUNDS[k]), 4)
+        if after == merged[k]: continue
+        applied.append((k, merged[k], after, reason, ev)); merged[k] = after
+    if applied:
         nv = rv + 1
         c.execute("UPDATE rulesets SET active=0 WHERE active=1")
         c.execute("INSERT INTO rulesets(version,active,json,created) VALUES(?,1,?,?)", (nv, json.dumps(merged), now()))
@@ -485,14 +518,64 @@ def step_review(c, rules, rv):
             c.execute("INSERT INTO rule_changes(old_version,new_version,key,before,after,reason,evidence,created) VALUES(?,?,?,?,?,?,?,?)",
                       (rv, nv, k, before, after, reason, ev, now()))
         c.commit()
-        print("review: rules v%d -> v%d: %s" % (rv, nv, ", ".join(k for k, *_ in applied)))
-    # wallet downgrades on bad paper performance
-    for w in c.execute("SELECT wallet, AVG(COALESCE(real,unreal)) p, COUNT(*) n FROM paper_trades GROUP BY wallet").fetchall():
-        if w["n"] >= 3 and w["p"] < -0.5:
+    return applied
+
+def step_review(c, rules, rv):
+    """Judge decisions by FINAL market resolution, not short-term price drift,
+    then let learn_rules() adjust thresholds from realized results (guardrailed)."""
+    pend = c.execute("""SELECT d.id did, d.decision, ot.condition_id cid, ot.outcome_index oi,
+                               ot.detected_price dp
+                        FROM decisions d JOIN observed_trades ot ON ot.id=d.observed_id
+                        LEFT JOIN reviews r ON r.decision_id=d.id
+                        WHERE r.id IS NULL AND d.created <= ?""", (now() - 3600,)).fetchall()
+    by_market = {}
+    for d in pend:
+        if d["cid"]:
+            by_market.setdefault(d["cid"], []).append(d)
+        else:  # no market id -> can never resolve; terminal review, don't requery forever
+            c.execute("INSERT OR IGNORE INTO reviews(decision_id,at,price_now,drift,was_good,kind,lesson) VALUES(?,?,NULL,NULL,NULL,'unpriced','no condition id')",
+                      (d["did"], now()))
+    n_rev = 0
+    for cid, ds in by_market.items():
+        try: info = market_info(cid)
+        except Exception: continue
+        if not info or not info["closed"]: continue  # still live: review at resolution
+        for d in ds:
+            final = None
+            if info["prices"] and d["oi"] is not None and d["oi"] < len(info["prices"]):
+                final = float(info["prices"][d["oi"]])
+            if final is None:
+                c.execute("INSERT OR IGNORE INTO reviews(decision_id,at,price_now,drift,was_good,kind,lesson) VALUES(?,?,NULL,NULL,NULL,'unpriced','market closed, no final price available')",
+                          (d["did"], now()))
+                continue
+            if 0.05 < final < 0.95:  # voided/ambiguous resolution: neither win nor loss
+                c.execute("INSERT OR IGNORE INTO reviews(decision_id,at,price_now,drift,was_good,kind,lesson) VALUES(?,?,?,NULL,NULL,'unpriced','ambiguous/void final price')",
+                          (d["did"], now(), final))
+                continue
+            won = final >= 0.5
+            drift = final - (d["dp"] or final)
+            if d["decision"] == "paper_copy":
+                good = 1 if won else 0
+                kind = "good_copy" if won else "bad_copy"
+                lesson = "copied at %.3f, resolved %.2f" % (d["dp"] or 0, final)
+            else:
+                good = 0 if won else 1  # informational: skipping winners isn't per-se bad EV
+                kind = "skipped_winner" if won else "skipped_loser"
+                lesson = "stayed out, detected %.3f, resolved %.2f" % (d["dp"] or 0, final)
+            c.execute("INSERT OR IGNORE INTO reviews(decision_id,at,price_now,drift,was_good,kind,lesson) VALUES(?,?,?,?,?,?,?)",
+                      (d["did"], now(), final, round(drift, 4), good, kind, lesson))
+            n_rev += 1
+    # wallet downgrades: judged on REALIZED results only, never on open marks
+    for w in c.execute("""SELECT wallet, AVG(real/size) p, COUNT(*) n FROM paper_trades
+                          WHERE status IN ('resolved','closed') AND real IS NOT NULL AND size>0
+                          GROUP BY wallet""").fetchall():
+        if w["n"] >= 5 and w["p"] < 0:
             c.execute("UPDATE wallets SET status='watch', status_reason=? WHERE address=? AND status='track'",
-                      ("downgraded: avg paper pnl %.2f over %d copies" % (w["p"], w["n"]), w["wallet"]))
+                      ("downgraded: mean realized return %.1f%% over %d resolved copies" % (100 * w["p"], w["n"]), w["wallet"]))
     c.commit()
-    print("review: %d decisions reviewed, %d rule changes" % (len(pend), len(changes)))
+    applied = learn_rules(c, rules, rv)
+    print("review: %d decisions resolved-reviewed, %d rule changes (resolution-learned)"
+          % (n_rev, len(applied)) + ("" if not applied else ": " + ", ".join(k for k, *_ in applied)))
 
 def step_report(c):
     today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
@@ -507,11 +590,16 @@ def step_report(c):
     worst = min(pts, key=lambda p: (p["real"] if p["real"] is not None else p["unreal"] or 0), default=None)
     rc = c.execute("SELECT * FROM rule_changes WHERE created>=?", (day0,)).fetchall()
     lessons = c.execute("SELECT lesson, kind FROM reviews ORDER BY at DESC LIMIT 5").fetchall()
+    bot_staked = sum(p["size"] or 0 for p in pts)
+    bot_ret = (snap["total_pnl"] / bot_staked) if snap and bot_staked else None
+    blind_ret = (snap["blind_pnl"] / snap["blind_staked"]) if snap and snap["blind_staked"] else None
     rep = {
         "date": today,
         "total_paper_pnl": snap and snap["total_pnl"] or 0,
         "blind_benchmark_pnl": snap and snap["blind_pnl"] or 0,
-        "beat_blind_copy": bool(snap and snap["total_pnl"] >= (snap["blind_pnl"] or 0) * min(1, len(pts) * 10 / max(1, len(pts) * 10))),
+        "bot_return_per_dollar": bot_ret and round(bot_ret, 4),
+        "blind_return_per_dollar": blind_ret and round(blind_ret, 4),
+        "beat_blind_copy": (None if bot_ret is None or blind_ret is None else bot_ret >= blind_ret),
         "win_rate": round(len(wins) / len(resolved), 3) if resolved else None,
         "open_positions": snap and snap["open_count"] or 0,
         "signals": dmap,

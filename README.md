@@ -1,9 +1,11 @@
 # Hermes — Polymarket Copy-Trading Research Bot (paper only)
 
 Self-improving copy-trading **research** bot. Scans the Polymarket leaderboard,
-scores wallets, watches their new trades, paper-trades the good ones ($5–$20
-simulated), reviews outcomes, and **rewrites its own rules** — every change
-versioned with evidence. Dashboard is a static page on GitHub Pages.
+scores wallets, watches their new trades, paper-trades the good ones (simulated
+stakes, 1–2% of paper equity), reviews every decision against the market's
+**final resolution**, and learns from **realized, cost-inclusive results** —
+never from short-term price drift, which is noise (see AUDIT.md P0). Every rule
+change is versioned with evidence. Dashboard is a static page on GitHub Pages.
 
 ## What it does NOT do
 No real trades. No private keys. No signing. No money. Read-only GETs against
@@ -20,20 +22,32 @@ Polymarket public APIs. See [SAFETY.md](SAFETY.md). Not financial advice.
    position per market, |price drift| cap.
 3. **pnl** — hourly mark-to-market via CLOB midpoints; resolves via gamma
    `outcomePrices`; also tracks a **blind-copy benchmark** ($10 on every observed
-   trade, unfiltered) for comparison.
-4. **review** — after ≥1h each decision is judged (good copy / bad copy /
-   missed winner / avoided loser) and **rules auto-update** on evidence
-   (≥3 samples per bucket): tighten `max_spread` when spread-heavy copies lose,
-   raise `min_liquidity`, lower/raise the copy-score gate, downgrade wallets with
-   bad paper performance. Every change: before/after/reason/evidence/new version.
+   trade, unfiltered) for comparison. Paper fills are **realistic**: BUY at the
+   ask, SELL at the bid, +1c penalty on thin books — not at the midpoint.
+4. **review** — each decision is judged against the market's **final resolution**
+   (good copy / bad copy / skipped winner / skipped loser), then `learn_rules`
+   adjusts thresholds (copy gate, sizing, spread/liquidity gates) from
+   **realized PnL of resolved copies only** — net of costs, never from price
+   drift. Anti-overfitting guardrails: ≥20 resolved samples, per-key evidence
+   recency (stale rows never re-trigger), split-half sign agreement, bounded
+   steps, hard bounds, 7-day per-key cooldown. Wallets with ≥5 resolved copies
+   and negative mean realized return are downgraded. Risk guards: 1–2% of
+   equity per trade, daily −5% kill-switch, max 2 open positions per category.
 5. **report / export** — daily report + `docs/data.json` for the dashboard.
+
+## Backtest
+`python3 backtest.py` — out-of-sample walk-forward test of copying leaderboard
+wallets (selection on in-sample only, evaluation on a later window, cost
+scenarios +0/1/2c). Results in `backtest_results.json`; biases and their
+direction are documented in the module docstring. Current verdict: **no edge
+after costs** — see AUDIT.md.
 
 ## Run
 ```
 python3 bot.py scan      # leaderboard + wallet scoring (heavy, ~1 min)
 python3 bot.py cycle     # monitor + pnl + review + report + export (rescans if >6h old)
 python3 bot.py loop 900  # cycle forever, every 15 min
-python3 test_bot.py      # self-checks incl. rule-learning and read-only safety
+python3 test_bot.py      # self-checks incl. resolution reviews, fills, read-only safety
 ```
 No dependencies — Python 3.9+ stdlib only. State in `hermes.db` (sqlite).
 
