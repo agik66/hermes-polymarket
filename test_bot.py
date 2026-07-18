@@ -195,6 +195,32 @@ cands = bt.candidates([
     dict(side="SELL", conditionId="f", price=0.5, size=400, timestamp=5, outcomeIndex=0)])
 assert len(cands) == 1 and cands[0]["price"] == 0.6  # first BUY chronologically, filters applied
 
+# arbitrage observer: pure scan flags only negRisk multi-outcome sets off by >=2c
+mk = lambda p, liq=5000, closed=False: dict(outcomePrices='["%s","%s"]' % (p, 1 - float(p)),
+                                            liquidity=liq, closed=closed)
+events = [
+    dict(slug="cheap-set", negRisk=True, markets=[mk("0.30"), mk("0.30"), mk("0.35")]),   # sum .95
+    dict(slug="fair-set", negRisk=True, markets=[mk("0.33"), mk("0.33"), mk("0.34")]),    # sum 1.00
+    dict(slug="rich-set", negRisk=True, markets=[mk("0.40"), mk("0.40"), mk("0.25")]),    # sum 1.05
+    dict(slug="not-negrisk", negRisk=False, markets=[mk("0.30"), mk("0.30"), mk("0.30")]),
+    dict(slug="binary", negRisk=True, markets=[mk("0.40"), mk("0.60")]),                  # <3 outcomes
+    dict(slug="has-closed", negRisk=True, markets=[mk("0.30"), mk("0.30", closed=True), mk("0.30")]),
+    dict(slug="dead-leg", negRisk=True, markets=[mk("0.30"), mk("0.30", liq=0), mk("0.20")]),  # untradable
+]
+found = {f[0]: f for f in bot.arb_scan_events(events)}
+assert set(found) == {"cheap-set", "rich-set"}, set(found)
+assert found["cheap-set"][3] == -0.05 and found["rich-set"][3] == 0.05
+assert found["cheap-set"][4] == 5000  # min liquidity carried through
+
+# learning_status: reports fresh evidence and cooldown without touching rules
+tmp, c, rules, rv = fresh_db()
+seed_copies(c, 3, 0.1, score=70)
+ls = bot.learning_status(c, rules)
+assert set(ls) == {"min_copy_score", "risk_max", "max_spread", "min_liquidity"}
+assert ls["min_copy_score"]["fresh_evidence"] == 3 and ls["min_copy_score"]["needed"] == 20
+assert bot.get_rules(c)[1] == 1  # status is read-only
+os.unlink(tmp)
+
 # learning-signal simulation: resolution learning cuts a losing wallet, "none" never does
 fin = {"m%d" % i: [0.0, 1.0] for i in range(15)}  # outcome 0 always loses
 tw = [dict(cid="m%d" % i, oi=0, price=0.5, ts=i * 200000, cat="x") for i in range(15)]

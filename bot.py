@@ -6,7 +6,7 @@ No private keys, no signing, no real orders. Read-only public APIs:
   gamma-api.polymarket.com (market metadata, liquidity, resolution)
   clob.polymarket.com      (midpoints, order books)
 
-Commands: scan | monitor | pnl | review | report | export | cycle | loop
+Commands: scan | monitor | pnl | review | arb | backtest | report | export | cycle | loop
 State: hermes.db (sqlite). Dashboard data: docs/data.json.
 """
 import json, sqlite3, sys, time, urllib.request, urllib.parse, traceback
@@ -95,6 +95,9 @@ CREATE TABLE IF NOT EXISTS scans(
   id INTEGER PRIMARY KEY, at INT, source TEXT, wallet_count INT, note TEXT);
 CREATE TABLE IF NOT EXISTS errors(
   id INTEGER PRIMARY KEY, at INT, step TEXT, error TEXT);
+CREATE TABLE IF NOT EXISTS arb_observations(
+  id INTEGER PRIMARY KEY, at INT, event_slug TEXT, n_outcomes INT,
+  yes_sum REAL, deviation REAL, min_liquidity REAL, note TEXT);
 """
 
 def db():
@@ -577,6 +580,63 @@ def step_review(c, rules, rv):
     print("review: %d decisions resolved-reviewed, %d rule changes (resolution-learned)"
           % (n_rev, len(applied)) + ("" if not applied else ": " + ", ".join(k for k, *_ in applied)))
 
+def arb_scan_events(events, min_dev=0.02, min_leg_liq=100.0):
+    """Pure scan: negRisk (mutually exclusive) events whose YES prices sum away
+    from 1.0 by more than min_dev. Every leg must have a live book (>= min_leg_liq)
+    — an 'arb' with an untradable leg is fiction. Returns [(slug, n, yes_sum, dev, min_liq)]."""
+    out = []
+    for e in events or []:
+        ms = e.get("markets") or []
+        if not e.get("negRisk") or len(ms) < 3: continue  # binary = one mirrored book
+        tot, liqs = 0.0, []
+        try:
+            for m in ms:
+                if m.get("closed"): raise ValueError
+                tot += float(json.loads(m.get("outcomePrices") or "[]")[0])
+                liqs.append(float(m.get("liquidity") or 0))
+        except (ValueError, IndexError):
+            continue
+        dev = round(tot - 1.0, 4)
+        if abs(dev) >= min_dev and min(liqs) >= min_leg_liq:
+            out.append((e.get("slug") or "?", len(ms), round(tot, 4), dev, round(min(liqs), 0)))
+    return out
+
+def step_arb(c):
+    """Read-only arbitrage OBSERVER (AUDIT.md section 3). Logs opportunities, never
+    trades them: at 15-min HTTP latency they are measurement, not income. After a
+    few weeks the table answers 'is anything catchable at our latency' with data."""
+    evs = http("%s/events?closed=false&limit=100&order=volume24hr&ascending=false" % GAMMA)
+    found = arb_scan_events(evs)
+    for slug, n, tot, dev, liq in found:
+        note = "sum<1: buy-all-YES would pay %.1fc/set pre-cost" % (-dev * 100) if dev < 0 \
+               else "sum>1: overpriced set (NegRisk-convert side)"
+        c.execute("INSERT INTO arb_observations(at,event_slug,n_outcomes,yes_sum,deviation,min_liquidity,note) VALUES(?,?,?,?,?,?,?)",
+                  (now(), slug, n, tot, dev, liq, note))
+    c.commit()
+    print("arb: %d events scanned, %d deviations >=2c logged" % (len(evs or []), len(found)))
+
+def learning_status(c, rules):
+    """Per learned key: fresh evidence count since its last change + cooldown left.
+    Makes learning progress visible instead of silent (report + dashboard)."""
+    out = {}
+    for k in ("min_copy_score", "risk_max", "max_spread", "min_liquidity"):
+        t0 = c.execute("SELECT MAX(created) m FROM rule_changes WHERE key=?", (k,)).fetchone()["m"] or 0
+        n = c.execute("""SELECT COUNT(*) n FROM paper_trades WHERE status IN ('resolved','closed')
+                         AND real IS NOT NULL AND size>0 AND closed>?""", (t0,)).fetchone()["n"]
+        out[k] = {"current": rules[k], "fresh_evidence": n, "needed": 20,
+                  "cooldown_days_left": round(max(0, 7 * 86400 - (now() - t0)) / 86400, 1)}
+    return out
+
+def step_backtest(c):
+    """Weekly out-of-sample self-check (AUDIT.md P5): reruns backtest.py so the
+    edge verdict tracks fresh data instead of a one-off snapshot."""
+    last = c.execute("SELECT MAX(at) m FROM scans WHERE source='backtest'").fetchone()["m"] or 0
+    if now() - last < 7 * 86400: return
+    import backtest
+    backtest.main()
+    c.execute("INSERT INTO scans(at,source,wallet_count,note) VALUES(?,?,0,'weekly OOS self-check')", (now(), "backtest"))
+    c.commit()
+
 def step_report(c):
     today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
     day0 = int(datetime.strptime(today, "%Y-%m-%d").replace(tzinfo=timezone.utc).timestamp())
@@ -606,6 +666,8 @@ def step_report(c):
         "best_trade": best and {"q": best["question"], "pnl": best["real"] if best["real"] is not None else best["unreal"]},
         "worst_trade": worst and {"q": worst["question"], "pnl": worst["real"] if worst["real"] is not None else worst["unreal"]},
         "rule_changes": [{"key": r["key"], "before": r["before"], "after": r["after"], "reason": r["reason"]} for r in rc],
+        "learning": learning_status(c, get_rules(c)[0]),
+        "arb_observations_today": c.execute("SELECT COUNT(*) n FROM arb_observations WHERE at>=?", (day0,)).fetchone()["n"],
         "top_lesson": lessons[0]["lesson"] if lessons else "not enough data yet",
         "watch_tomorrow": "review open positions and near-gate watchlist signals",
     }
@@ -636,7 +698,14 @@ def step_export(c):
         "reports": rows("SELECT * FROM reports ORDER BY date DESC LIMIT 14"),
         "scans": rows("SELECT * FROM scans ORDER BY at DESC LIMIT 10"),
         "errors": rows("SELECT * FROM errors ORDER BY at DESC LIMIT 20"),
+        "learning": learning_status(c, rules),
+        "arb_observations": rows("SELECT * FROM arb_observations ORDER BY at DESC LIMIT 50"),
     }
+    try:
+        with open(DOCS + "/../backtest_results.json") as f:
+            out["backtest"] = json.load(f)
+    except (OSError, ValueError):
+        out["backtest"] = None
     with open(DOCS + "/data.json", "w") as f:
         json.dump(out, f, default=str)
     print("export: docs/data.json written")
@@ -647,6 +716,8 @@ def cycle():
              ("monitor", lambda: step_monitor(c, *get_rules(c))),
              ("pnl", lambda: step_pnl(c)),
              ("review", lambda: step_review(c, *get_rules(c))),
+             ("arb", lambda: step_arb(c)),
+             ("backtest", lambda: step_backtest(c)),
              ("report", lambda: step_report(c)),
              ("export", lambda: step_export(c))]
     # scan is heavy; only rescan if last scan >6h old
@@ -669,6 +740,8 @@ if __name__ == "__main__":
     elif cmd == "monitor": step_monitor(c, *get_rules(c))
     elif cmd == "pnl": step_pnl(c)
     elif cmd == "review": step_review(c, *get_rules(c))
+    elif cmd == "arb": step_arb(c)
+    elif cmd == "backtest": step_backtest(c)
     elif cmd == "report": step_report(c)
     elif cmd == "export": step_export(c)
     elif cmd == "cycle": cycle()

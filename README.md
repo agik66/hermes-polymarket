@@ -33,7 +33,13 @@ Polymarket public APIs. See [SAFETY.md](SAFETY.md). Not financial advice.
    steps, hard bounds, 7-day per-key cooldown. Wallets with ≥5 resolved copies
    and negative mean realized return are downgraded. Risk guards: 1–2% of
    equity per trade, daily −5% kill-switch, max 2 open positions per category.
-5. **report / export** — daily report + `docs/data.json` for the dashboard.
+5. **arb** — read-only arbitrage **observer**: logs negRisk multi-outcome events
+   whose YES prices sum ≥2c away from $1 with every leg tradable. Measurement
+   only — at 15-min HTTP latency these are not exploitable (AUDIT.md §3).
+6. **backtest** — weekly automatic out-of-sample self-check; the edge verdict
+   in `backtest_results.json` tracks fresh data and is exported to the dashboard.
+7. **report / export** — daily report (incl. per-key learning progress:
+   fresh evidence counts + cooldowns) + `docs/data.json` for the dashboard.
 
 ## Backtest
 `python3 backtest.py` — out-of-sample walk-forward test of copying leaderboard

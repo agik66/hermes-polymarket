@@ -1,5 +1,5 @@
 {
- "generated": "2026-07-17 09:02:50",
+ "generated": "2026-07-18 12:07:54",
  "params": {
   "hist_days": 90,
   "oos_window_days": [
@@ -16,198 +16,190 @@
   ]
  },
  "selected": [
-  "BreakTheBank",
-  "0x99F0d31fdced5B3A0e5Ee2867730A6644a6C9495-1779037126382",
   "Sportbetting76",
   "ndb1",
-  "0x955c9661"
+  "Prelode",
+  "JhonAlexanderHinestroza",
+  "Pwaddler"
  ],
  "scenarios": {
   "cost_0c": {
    "selected_top5_OOS": {
-    "n": 97,
-    "win_rate": 0.567,
-    "mean": -0.0482,
-    "sd": 0.9131,
-    "t_stat": -0.52,
-    "total": -4.68,
-    "max_drawdown": 22.94
+    "n": 195,
+    "win_rate": 0.456,
+    "mean": 0.0867,
+    "sd": 1.6405,
+    "t_stat": 0.74,
+    "total": 16.91,
+    "max_drawdown": 10.25
    },
    "all_wallets_OOS_blind": {
-    "n": 479,
-    "win_rate": 0.499,
-    "mean": -0.0128,
-    "sd": 1.171,
-    "t_stat": -0.24,
-    "total": -6.15,
-    "max_drawdown": 48.61
+    "n": 429,
+    "win_rate": 0.441,
+    "mean": 0.019,
+    "sd": 1.5033,
+    "t_stat": 0.26,
+    "total": 8.14,
+    "max_drawdown": 30.86
    },
    "bottom5_OOS_control": {
-    "n": 42,
-    "win_rate": 0.571,
-    "mean": 0.0339,
-    "sd": 1.0341,
-    "t_stat": 0.21,
-    "total": 1.43,
-    "max_drawdown": 6.52
+    "n": 12,
+    "win_rate": 0.667,
+    "mean": 0.0551,
+    "sd": 0.8711,
+    "t_stat": 0.22,
+    "total": 0.66,
+    "max_drawdown": 2.61
    },
    "selected_top5_IS_for_reference": {
-    "n": 436,
-    "win_rate": 0.601,
-    "mean": 0.201,
-    "sd": 1.3956,
-    "t_stat": 3.01,
-    "total": 87.63,
-    "max_drawdown": 13.04
+    "n": 651,
+    "win_rate": 0.539,
+    "mean": 0.0933,
+    "sd": 1.2989,
+    "t_stat": 1.83,
+    "total": 60.73,
+    "max_drawdown": 18.98
    }
   },
   "cost_1c": {
    "selected_top5_OOS": {
-    "n": 97,
-    "win_rate": 0.567,
-    "mean": -0.0652,
-    "sd": 0.8942,
-    "t_stat": -0.72,
-    "total": -6.32,
-    "max_drawdown": 23.5
+    "n": 195,
+    "win_rate": 0.456,
+    "mean": 0.0501,
+    "sd": 1.5479,
+    "t_stat": 0.45,
+    "total": 9.77,
+    "max_drawdown": 11.45
    },
    "all_wallets_OOS_blind": {
-    "n": 479,
-    "win_rate": 0.499,
-    "mean": -0.0356,
-    "sd": 1.1317,
-    "t_stat": -0.69,
-    "total": -17.04,
-    "max_drawdown": 54.25
+    "n": 429,
+    "win_rate": 0.441,
+    "mean": -0.0125,
+    "sd": 1.4269,
+    "t_stat": -0.18,
+    "total": -5.35,
+    "max_drawdown": 37.84
    },
    "bottom5_OOS_control": {
-    "n": 42,
-    "win_rate": 0.571,
-    "mean": 0.0133,
-    "sd": 1.0081,
-    "t_stat": 0.09,
-    "total": 0.56,
-    "max_drawdown": 6.59
+    "n": 12,
+    "win_rate": 0.667,
+    "mean": 0.0374,
+    "sd": 0.8531,
+    "t_stat": 0.15,
+    "total": 0.45,
+    "max_drawdown": 2.63
    },
    "selected_top5_IS_for_reference": {
-    "n": 436,
-    "win_rate": 0.601,
-    "mean": 0.1686,
-    "sd": 1.3157,
-    "t_stat": 2.68,
-    "total": 73.53,
-    "max_drawdown": 15.07
+    "n": 651,
+    "win_rate": 0.539,
+    "mean": 0.0656,
+    "sd": 1.2367,
+    "t_stat": 1.35,
+    "total": 42.71,
+    "max_drawdown": 22.01
    }
   },
   "cost_2c": {
    "selected_top5_OOS": {
-    "n": 97,
-    "win_rate": 0.567,
-    "mean": -0.0815,
-    "sd": 0.8761,
-    "t_stat": -0.92,
-    "total": -7.91,
-    "max_drawdown": 24.03
+    "n": 195,
+    "win_rate": 0.456,
+    "mean": 0.0168,
+    "sd": 1.4679,
+    "t_stat": 0.16,
+    "total": 3.28,
+    "max_drawdown": 13.1
    },
    "all_wallets_OOS_blind": {
-    "n": 479,
-    "win_rate": 0.499,
-    "mean": -0.057,
-    "sd": 1.096,
-    "t_stat": -1.14,
-    "total": -27.33,
-    "max_drawdown": 59.52
+    "n": 429,
+    "win_rate": 0.441,
+    "mean": -0.0413,
+    "sd": 1.3604,
+    "t_stat": -0.63,
+    "total": -17.72,
+    "max_drawdown": 44.36
    },
    "bottom5_OOS_control": {
-    "n": 42,
-    "win_rate": 0.571,
-    "mean": -0.0065,
-    "sd": 0.9836,
-    "t_stat": -0.04,
-    "total": -0.27,
-    "max_drawdown": 6.67
+    "n": 12,
+    "win_rate": 0.667,
+    "mean": 0.0202,
+    "sd": 0.8359,
+    "t_stat": 0.08,
+    "total": 0.24,
+    "max_drawdown": 2.65
    },
    "selected_top5_IS_for_reference": {
-    "n": 436,
-    "win_rate": 0.601,
-    "mean": 0.139,
-    "sd": 1.249,
-    "t_stat": 2.32,
-    "total": 60.58,
-    "max_drawdown": 17.04
+    "n": 651,
+    "win_rate": 0.539,
+    "mean": 0.0399,
+    "sd": 1.1839,
+    "t_stat": 0.86,
+    "total": 25.98,
+    "max_drawdown": 24.92
    }
   }
  },
  "is_oos_rank_correlation": {
-  "rho": -0.209,
-  "wallets": 13
+  "rho": 0.273,
+  "wallets": 12
  },
  "selected_OOS_by_category": {
   "2026": {
    "n": 4,
    "mean": -0.4138
   },
-  "aleksandar": {
-   "n": 1,
-   "mean": 0.0866
-  },
   "chi": {
+   "n": 8,
+   "mean": 0.5307
+  },
+  "cs2": {
    "n": 1,
    "mean": -1.0
   },
   "fifwc": {
-   "n": 30,
-   "mean": -0.3296
+   "n": 132,
+   "mean": -0.0008
   },
-  "next": {
+  "mlb": {
    "n": 1,
-   "mean": 0.1515
-  },
-  "the": {
-   "n": 1,
-   "mean": -0.9909
-  },
-  "toy": {
-   "n": 4,
-   "mean": 0.0547
+   "mean": 0.4085
   },
   "ufc": {
-   "n": 6,
-   "mean": 0.0191
+   "n": 7,
+   "mean": -0.1265
   },
   "will": {
    "n": 1,
    "mean": -1.0
   },
   "world": {
-   "n": 49,
-   "mean": 0.1031
+   "n": 50,
+   "mean": 0.0811
   }
  },
  "learning_comparison_at_+2c": {
   "none": {
-   "n": 97,
-   "win_rate": 0.567,
-   "mean": -0.0815,
-   "sd": 0.8761,
-   "t_stat": -0.92,
-   "total": -7.91,
-   "max_drawdown": 24.03
+   "n": 195,
+   "win_rate": 0.456,
+   "mean": 0.0168,
+   "sd": 1.4679,
+   "t_stat": 0.16,
+   "total": 3.28,
+   "max_drawdown": 13.1
   },
   "resolution": {
-   "n": 45,
-   "win_rate": 0.467,
-   "mean": -0.288,
-   "sd": 0.8372,
-   "t_stat": -2.31,
-   "total": -12.96,
-   "max_drawdown": 16.39
+   "n": 138,
+   "win_rate": 0.384,
+   "mean": -0.0427,
+   "sd": 1.623,
+   "t_stat": -0.31,
+   "total": -5.89,
+   "max_drawdown": 13.1
   },
   "noise_1h_drift_emulation": {
    "runs": 20,
-   "avg_n": 70.1,
-   "mean_of_means": -0.1942,
-   "mean_total": -11.17
+   "avg_n": 126.4,
+   "mean_of_means": 0.0427,
+   "mean_total": 4.29
   }
  },
  "verdict": {
