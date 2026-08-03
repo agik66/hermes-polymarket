@@ -159,63 +159,76 @@ fetch('data.json?_='+Date.now()).then(r=>r.json()).then(D=>{
   show(0);
 }).catch(e=>{$('#meta').textContent='FAILED to load data.json: '+e;});
 
-function renderSports(D){
-  const s = D.sports || {};
-  if(!s.tickets){ return '<div class="small">Sports engine data not yet available. Pipeline runs daily at 06:00 UTC.</div>'; }
+function renderSports(_unused){
+  // Self-contained: reads data.json directly with cache busting
+  var container = document.createElement('div');
+  container.innerHTML = '<div class="small">Loading sports data...</div>';
   
-  const tickets = s.tickets || [];
-  const ledger = s.ledger || {};
-  const pipeline = s.pipeline || {};
-  
-  let html = `<div class="sub" style="margin-bottom:10px">${s.generated_at || ''} · <span class="badge safety">${s.mode||'PAPER TRADING'}</span> · ${s.leagues||14} leagues</div>`;
-  
-  // Stats tiles
-  html += `<div class="sports-tiles">
-    <div class="sports-tile"><div class="v">$${(ledger.bankroll||0).toFixed(0)}</div><div class="lbl">BANKROLL</div></div>
-    <div class="sports-tile"><div class="v" style="color:${(ledger.total_pnl||0)>=0?'var(--good)':'var(--bad)'}">$${(ledger.total_pnl||0).toFixed(0)}</div><div class="lbl">TOTAL P&L</div></div>
-    <div class="sports-tile"><div class="v">${ledger.open_bets||0}</div><div class="lbl">OPEN BETS</div></div>
-    <div class="sports-tile"><div class="v">${tickets.length}</div><div class="lbl">TODAY TICKETS</div></div>
-    <div class="sports-tile"><div class="v">${(ledger.win_rate||0).toFixed(0)}%</div><div class="lbl">WIN RATE</div></div>
-    <div class="sports-tile"><div class="v">${ledger.settled_bets||0}/${ledger.total_bets||0}</div><div class="lbl">SETTLED/TOTAL</div></div>
-  </div>`;
-  
-  // Pipeline status
-  html += `<div class="small" style="margin-bottom:10px">Pipeline: ${pipeline.markets_fetched||0} market files · ${pipeline.smart_money_analyzed||0} signals · ${pipeline.candidates||0} candidates · ${pipeline.tickets_built||0} tickets</div>`;
-  
-  // Today's tickets
-  html += '<h2 style="font-size:14px;font-weight:650;margin:16px 0 8px">🎯 Today\'s Tickets</h2>';
-  if(tickets.length === 0){
-    html += '<div class="small">No tickets today — no qualifying surprises (odds 6-15, score ≥ 60).</div>';
-  } else {
-    tickets.forEach(t => {
-      html += `<div class="ticket-card">
-        <div class="hdr"><span>🎯 ${esc(t.id)}</span><span style="color:var(--s2)">Score ${(t.score||0).toFixed(0)}/100</span></div>
-        <div class="small" style="margin-bottom:6px">Odds: <b>${t.odds||'?'}</b> · Stake: <b>$${t.stake||'paper'}</b> · ${s.mode||'PAPER'}</div>`;
-      (t.legs||[]).forEach(leg => {
-        html += `<div class="ticket-leg"><span>⚽ ${esc(leg.team||'').substring(0,25)}</span><span>→ ${esc(leg.outcome||'')}</span><span class="odds">@${leg.odds||'?'}</span></div>`;
-      });
-      html += '</div>';
+  fetch('data.json?_=' + Date.now())
+    .then(function(r){ return r.json(); })
+    .then(function(D){
+      var s = D.sports || {};
+      if(!s.tickets || !s.tickets.length){
+        container.innerHTML = '<div class="small">Sports engine data not yet available. Pipeline runs daily at 06:00 UTC.<br><br>Check back after 12:00 UTC for daily tickets.</div>';
+        return;
+      }
+      
+      var tickets = s.tickets || [];
+      var ledger = s.ledger || {};
+      var pipeline = s.pipeline || {};
+      
+      var html = '<div class="sub" style="margin-bottom:10px">' + (s.generated_at||'') + ' · <span class="badge safety">' + (s.mode||'PAPER TRADING') + '</span> · ' + (s.leagues||14) + ' leagues</div>';
+      
+      // Stats tiles
+      html += '<div class="sports-tiles">' +
+        '<div class="sports-tile"><div class="v">$' + ((ledger.bankroll||0).toFixed(0)) + '</div><div class="lbl">BANKROLL</div></div>' +
+        '<div class="sports-tile"><div class="v" style="color:' + ((ledger.total_pnl||0)>=0?'var(--good)':'var(--bad)') + '">$' + ((ledger.total_pnl||0).toFixed(0)) + '</div><div class="lbl">TOTAL P&L</div></div>' +
+        '<div class="sports-tile"><div class="v">' + (ledger.open_bets||0) + '</div><div class="lbl">OPEN BETS</div></div>' +
+        '<div class="sports-tile"><div class="v">' + tickets.length + '</div><div class="lbl">TODAY TICKETS</div></div>' +
+        '<div class="sports-tile"><div class="v">' + ((ledger.win_rate||0).toFixed(0)) + '%</div><div class="lbl">WIN RATE</div></div>' +
+        '<div class="sports-tile"><div class="v">' + (ledger.settled_bets||0) + '/' + (ledger.total_bets||0) + '</div><div class="lbl">SETTLED/TOTAL</div></div>' +
+      '</div>';
+      
+      // Pipeline
+      html += '<div class="small" style="margin-bottom:10px">Pipeline: ' + (pipeline.markets_fetched||0) + ' files · ' + (pipeline.smart_money_analyzed||0) + ' signals · ' + (pipeline.candidates||0) + ' candidates · ' + (pipeline.tickets_built||0) + ' tickets</div>';
+      
+      // Tickets
+      html += '<h2 style="font-size:14px;font-weight:650;margin:16px 0 8px">🎯 Today\'s Tickets</h2>';
+      if(tickets.length === 0){
+        html += '<div class="small">No tickets today.</div>';
+      } else {
+        tickets.forEach(function(t){
+          html += '<div class="ticket-card"><div class="hdr"><span>🎯 ' + esc(t.id) + '</span><span style="color:var(--s2)">Score ' + (t.score||0).toFixed(0) + '/100</span></div>' +
+            '<div class="small" style="margin-bottom:6px">Odds: <b>' + (t.odds||'?') + '</b> · Stake: <b>$' + (t.stake||'paper') + '</b></div>';
+          (t.legs||[]).forEach(function(leg){
+            html += '<div class="ticket-leg"><span>⚽ ' + esc((leg.team||'').substring(0,25)) + '</span><span>→ ' + esc(leg.outcome||'') + '</span><span class="odds">@' + (leg.odds||'?') + '</span></div>';
+          });
+          html += '</div>';
+        });
+      }
+      
+      // Ledger
+      html += '<h2 style="font-size:14px;font-weight:650;margin:16px 0 8px">📒 Recent Bets</h2>';
+      var recent = (ledger.recent_bets||[]).slice(-8).reverse();
+      if(recent.length === 0){
+        html += '<div class="small">No bets yet.</div>';
+      } else {
+        html += '<table class="standing-table"><thead><tr><th>Ticket</th><th>Stake</th><th>Odds</th><th>Status</th><th>P&L</th></tr></thead><tbody>';
+        recent.forEach(function(b){
+          var pnl = b.pnl||0;
+          html += '<tr><td>' + esc(b.ticket_id||'?') + '</td><td>$' + ((b.stake||0).toFixed(2)) + '</td><td>' + (b.odds||'?') + '</td><td>' + pill(b.status||'?') + '</td><td class="' + (pnl>=0?'pos':'neg') + '">' + (pnl>=0?'+':'') + '$' + pnl.toFixed(2) + '</td></tr>';
+        });
+        html += '</tbody></table>';
+      }
+      
+      html += '<div class="config-note" style="margin-top:12px">⚙️ Edit: <code>risk_params.yaml</code> · Auto: 06:00+11:00+12:00 UTC · Telegram 12:00</div>';
+      container.innerHTML = html;
+    })
+    .catch(function(e){
+      container.innerHTML = '<div class="small">Sports data loading failed: ' + esc(e.message) + '<br>Check console or try refreshing.</div>';
     });
-  }
   
-  // Recent ledger
-  html += '<h2 style="font-size:14px;font-weight:650;margin:16px 0 8px">📒 Recent Bets</h2>';
-  const recent = (ledger.recent_bets||[]).slice(-8).reverse();
-  if(recent.length === 0){
-    html += '<div class="small">No bets yet.</div>';
-  } else {
-    html += '<table class="standing-table"><thead><tr><th>Ticket</th><th>Stake</th><th>Odds</th><th>Status</th><th>P&L</th></tr></thead><tbody>';
-    recent.forEach(b => {
-      const pnl = b.pnl||0;
-      html += `<tr><td>${esc(b.ticket_id||'?')}</td><td>$${(b.stake||0).toFixed(2)}</td><td>${b.odds||'?'}</td><td>${pill(b.status||'?')}</td><td class="${pnl>=0?'pos':'neg'}">${pnl>=0?'+':''}$${pnl.toFixed(2)}</td></tr>`;
-    });
-    html += '</tbody></table>';
-  }
-  
-  // Config note
-  html += '<div class="config-note" style="margin-top:12px">⚙️ Edit risk params: <code>~/.hermes/config/risk_params.yaml</code> · Auto-update daily 06:00+11:00+12:00 UTC · Telegram delivery 12:00</div>';
-  
-  return html;
+  return container.innerHTML;
 }
 
 function table(head,rows,numCols=[]){
