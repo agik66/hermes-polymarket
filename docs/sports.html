@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="sk"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sports Intelligence Engine</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+:root{--bg:#0b1020;--card:#141a33;--card2:#1a2140;--line:#232b4d;--txt:#e6e9f5;--muted:#8a90b0;--green:#00e5a0;--red:#ff5c5c;--amber:#f5a623;--blue:#4d7cfe;--purple:#9a6bff}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:linear-gradient(135deg,#0b1020,#0d1430 60%,#0b1020);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;min-height:100vh}
+.wrap{max-width:1240px;margin:0 auto;padding:20px 20px 60px}
+.top{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;padding:14px 0}
+.brand{display:flex;align-items:center;gap:12px}
+.logo{width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,var(--green),var(--blue));display:flex;align-items:center;justify-content:center;font-size:22px;box-shadow:0 4px 20px rgba(0,229,160,.3)}
+.brand h1{font-size:20px;font-weight:800;letter-spacing:-.3px}
+.brand .sub{color:var(--muted);font-size:12px}
+.mode{padding:5px 14px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:1px;background:rgba(245,166,35,.15);color:var(--amber);border:1px solid rgba(245,166,35,.4);text-transform:uppercase}
+.generated{color:var(--muted);font-size:12px;margin-top:4px}
+.refresh{cursor:pointer;color:var(--blue);font-size:13px;background:none;border:none;padding:8px}
+
+.section{margin:30px 0}
+.sec-title{display:flex;align-items:center;gap:8px;font-size:16px;font-weight:800;margin-bottom:14px;letter-spacing:-.2px}
+.sec-title .bar{width:4px;height:18px;border-radius:2px;background:linear-gradient(var(--green),var(--blue))}
+
+/* Finance tiles */
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.tile{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;position:relative;overflow:hidden}
+.tile::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--green),transparent);opacity:.6}
+.tile.red::after{background:linear-gradient(90deg,var(--red),transparent)}
+.tile .t-v{font-size:26px;font-weight:800;letter-spacing:-.5px}
+.tile .t-k{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-top:6px}
+.tile .t-d{font-size:11px;color:var(--muted);margin-top:2px}
+.pos{color:var(--green)!important}.neg{color:var(--red)!important}
+.accent{color:var(--blue)!important}.gold{color:var(--amber)!important}
+
+/* Charts */
+.charts{display:grid;grid-template-columns:1.4fr 1fr;gap:14px}
+.chart-card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px}
+.chart-card h3{font-size:13px;font-weight:700;margin-bottom:12px;color:var(--muted)}
+.chart-box{position:relative;height:220px}
+@media(max-width:800px){.charts{grid-template-columns:1fr}}
+
+/* Tickets */
+.tickets{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:14px}
+.ticket{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px}
+.ticket.safe{border-color:rgba(0,229,160,.6);box-shadow:0 0 30px rgba(0,229,160,.08)}
+.ticket-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.ticket-hdr>span:first-child{font-weight:800;font-size:15px}
+.ticket-hdr .score{font-weight:800;font-size:17px}
+.ticket-meta{font-size:11px;color:var(--muted);margin-bottom:10px}
+.leg{background:var(--card2);border:1px solid var(--line);border-radius:10px;padding:10px;margin-top:8px}
+.leg-top{display:flex;justify-content:space-between;gap:6px}
+.leg-event{font-size:13px;font-weight:600}
+.leg-odds{font-size:15px;font-weight:800;color:var(--green)}
+.leg-mid{display:flex;justify-content:space-between;margin-top:3px;font-size:12px}
+.leg-outcome{color:var(--amber);font-weight:600}
+.leg-league{color:var(--muted)}
+.comps{display:flex;gap:6px;flex-wrap:wrap;margin-top:7px}
+.comp{font-size:10px;padding:2px 7px;border-radius:10px;background:rgba(26,33,64,.6)}
+.sent{font-size:11px;color:var(--muted);margin-top:6px}
+.empty{color:var(--muted);font-size:13px;padding:20px;text-align:center}
+
+/* Agent analysis */
+.agree-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:14px}
+.agree-card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;text-align:center}
+.agree-card .a-v{font-size:26px;font-weight:800}
+.agree-card.all .a-v{color:var(--green)}.agree-card.some .a-v{color:var(--amber)}.agree-card.none .a-v{color:var(--red)}
+.agree-card .a-l{font-size:11px;color:var(--muted);margin-top:4px;text-transform:uppercase;letter-spacing:1px}
+.agr-list{display:flex;flex-direction:column;gap:8px;max-height:360px;overflow-y:auto}
+.agr-row{display:flex;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px;align-items:center}
+.agr-badge{flex-shrink:0;font-size:10px;font-weight:700;padding:4px 8px;border-radius:8px}
+.agr-row.all .agr-badge{background:rgba(0,229,160,.15);color:var(--green)}
+.agr-row.some .agr-badge{background:rgba(245,166,35,.15);color:var(--amber)}
+.agr-row.none .agr-badge{background:rgba(255,92,92,.15);color:var(--red)}
+.agr-event{font-weight:600;font-size:12px}
+.agr-detail{font-size:11px;color:var(--muted);margin-top:2px}
+
+/* Sentiment */
+.sent-list{display:flex;flex-direction:column;gap:8px}
+.sent-item{display:flex;flex-direction:column;gap:2px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px}
+.sent-tick{font-weight:800;font-size:11px;color:var(--blue)}
+.sent-event{font-weight:600;font-size:13px}
+.sent-exp{font-size:12px;color:var(--muted)}
+
+/* Self improvement */
+.insights{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.ins{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;text-align:center}
+.ins-v{font-size:22px;font-weight:800;color:var(--green)}
+.ins-l{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-top:4px}
+.ins-d{font-size:11px;color:var(--muted);margin-top:2px}
+.lessons{margin-top:14px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px}
+.lessons li{margin:6px 0 6px 18px;font-size:13px;color:var(--txt)}
+
+/* Pipeline */
+.pipe-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.pipe{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;text-align:center}
+.pipe-v{font-size:24px;font-weight:800;color:var(--blue)}
+.pipe-l{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-top:2px}
+
+/* Table */
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{text-align:left;padding:10px 12px;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:1px;border-bottom:1px solid var(--line)}
+td{padding:10px 12px;border-bottom:1px solid rgba(35,43,77,.5)}
+.st{font-size:10px;font-weight:700;padding:3px 8px;border-radius:8px;background:rgba(245,166,35,.15);color:var(--amber)}
+.st.open{background:rgba(77,124,254,.15);color:var(--blue)}
+.tbl-wrap{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:800px){.grid2{grid-template-columns:1fr}}
+footer{text-align:center;color:var(--muted);font-size:11px;margin-top:40px;opacity:.6}
+</style></head><body><div class="wrap">
+
+<div class="top">
+  <div class="brand"><div class="logo">🏆</div><div><h1>Sports Intelligence Engine</h1><div class="sub" id="gen-line">2026-08-03 11:53 UTC</div></div></div>
+  <div>
+    <span class="mode">PAPER TRADING</span>
+    <button class="refresh" onclick="location.reload()">↻ Obnoviť</button>
+  </div>
+</div>
+
+<!-- FINANCE -->
+<div class="section">
+  <div class="sec-title"><span class="bar"></span>💰 Financie a stávky (Polymarket, paper)</div>
+  <div class="tiles">
+    <div class="tile"><div class="t-v">$1,000</div><div class="t-k">Bankroll</div><div class="t-d">stav účtu</div></div>
+    <div class="tile"><div class="t-v gold">$65</div><div class="t-k">Celkovo vsadené</div><div class="t-d">6 stávok</div></div>
+    <div class="tile"><div class="t-v accent">$65</div><div class="t-k">Otvorené v stávkach</div><div class="t-d">6 nevyhodnotené</div></div>
+    <div class="tile"><div class="t-v">0/6</div><div class="t-k">Vyhodnotené/otvorené</div><div class="t-d">settled / open</div></div>
+    <div class="tile red"><div class="t-v neg">$-65</div><div class="t-k">Celkový P&L</div><div class="t-d">realizovaný +0$</div></div>
+    <div class="tile "><div class="t-v pos">$+0</div><div class="t-k">Realizovaný P&L</div><div class="t-d">uzavreté stávky</div></div>
+    <div class="tile"><div class="t-v neg">0%</div><div class="t-k">Win rate</div><div class="t-d">+0.0% ROI/$100</div></div>
+  </div>
+</div>
+
+<!-- CHARTS -->
+<div class="section">
+  <div class="sec-title"><span class="bar"></span>📈 Grafy</div>
+  <div class="charts">
+    <div class="chart-card"><h3>Equity krivka bankrollu</h3><div class="chart-box"><canvas id="eqChart"></canvas></div></div>
+    <div class="chart-card"><h3>Win rate podľa score pásma</h3><div class="chart-box"><canvas id="bandChart"></canvas></div></div>
+  </div>
+</div>
+
+<!-- TICKETS -->
+<div class="section">
+  <div class="sec-title"><span class="bar"></span>🎯 Dnešné tikety (2026-08-03)</div>
+  <div class="tickets">
+    
+        <div class="ticket 🛡️ safe">
+          <div class="ticket-hdr">
+            <span>🛡️ SAFE 2026-08-03-SAFE</span>
+            <span class="score" style="color:#00e5a0">86/100</span>
+          </div>
+          <div class="ticket-meta">Kurz 5.16 · Stávka $0 · SAFE · </div>
+          
+            <div class="leg">
+              <div class="leg-top">
+                <span class="leg-event">MLS: 2026 Defender of the Year</span>
+                <span class="leg-odds">@1.33</span>
+              </div>
+              <div class="leg-mid">
+                <span class="leg-outcome">→ Aaron Long</span>
+                <span class="leg-league">⚽ Futbal · MLS</span>
+              </div>
+              <div class="comps"><span class="comp" style="color:#9aa0a6">News 0</span><span class="comp" style="color:#9aa0a6">Stats 0</span><span class="comp" style="color:#ff5c5c">Smart$ 100</span><span class="comp" style="color:#ff5c5c">Movt 100</span></div>
+              <div class="sent">💡 veľké peniaze (smart money) idú týmto smerom, kurz sa hýbe týmto smerom</div>
+            </div>
+            <div class="leg">
+              <div class="leg-top">
+                <span class="leg-event">PAOK vs. RSC Anderlecht - Second Half Result</span>
+                <span class="leg-odds">@1.82</span>
+              </div>
+              <div class="leg-mid">
+                <span class="leg-outcome">→ RSC Anderlecht</span>
+                <span class="leg-league">⚽ Futbal · Europa League</span>
+              </div>
+              <div class="comps"><span class="comp" style="color:#9aa0a6">News 0</span><span class="comp" style="color:#9aa0a6">Stats 0</span><span class="comp" style="color:#ff5c5c">Smart$ 74</span><span class="comp" style="color:#ff5c5c">Movt 100</span></div>
+              <div class="sent">💡 veľké peniaze (smart money) idú týmto smerom, kurz sa hýbe týmto smerom</div>
+            </div>
+            <div class="leg">
+              <div class="leg-top">
+                <span class="leg-event">Kuopion PS vs. Universitatea Craiova CS - Total Corners</span>
+                <span class="leg-odds">@2.13</span>
+              </div>
+              <div class="leg-mid">
+                <span class="leg-outcome">→ Over</span>
+                <span class="leg-league">⚽ Futbal · Europa League</span>
+              </div>
+              <div class="comps"><span class="comp" style="color:#9aa0a6">News 0</span><span class="comp" style="color:#9aa0a6">Stats 0</span><span class="comp" style="color:#f5a623">Smart$ 56</span><span class="comp" style="color:#ff5c5c">Movt 90</span></div>
+              <div class="sent">💡 kurz sa hýbe týmto smerom</div>
+            </div>
+        </div>
+    
+        <div class="ticket 🎯">
+          <div class="ticket-hdr">
+            <span>🎯 2026-08-03-A</span>
+            <span class="score" style="color:#00e5a0">75/100</span>
+          </div>
+          <div class="ticket-meta">Kurz 9.46 · Stávka $0 · NORMAL · svk1, uel</div>
+          
+            <div class="leg">
+              <div class="leg-top">
+                <span class="leg-event">Kuopion PS vs. Universitatea Craiova CS - Total Corners</span>
+                <span class="leg-odds">@2.13</span>
+              </div>
+              <div class="leg-mid">
+                <span class="leg-outcome">→ Over</span>
+                <span class="leg-league">⚽ Futbal · Europa League</span>
+              </div>
+              <div class="comps"><span class="comp" style="color:#9aa0a6">News 0</span><span class="comp" style="color:#9aa0a6">Stats 0</span><span class="comp" style="color:#f5a623">Smart$ 56</span><span class="comp" style="color:#ff5c5c">Movt 90</span></div>
+              <div class="sent">💡 kurz sa hýbe týmto smerom</div>
+            </div>
+            <div class="leg">
+              <div class="leg-top">
+                <span class="leg-event">FC Košice vs. FC DAC 1904 Dunajská Streda - More Markets</span>
+                <span class="leg-odds">@4.44</span>
+              </div>
+              <div class="leg-mid">
+                <span class="leg-outcome">→ Over</span>
+                <span class="leg-league">⚽ Futbal · Fortuna Liga</span>
+              </div>
+              <div class="comps"><span class="comp" style="color:#9aa0a6">News 0</span><span class="comp" style="color:#9aa0a6">Stats 0</span><span class="comp" style="color:#f5a623">Smart$ 45</span><span class="comp" style="color:#ff5c5c">Movt 100</span></div>
+              <div class="sent">💡 kurz sa hýbe týmto smerom</div>
+            </div>
+        </div>
+        <div class="ticket 🎯">
+          <div class="ticket-hdr">
+            <span>🎯 2026-08-03-B</span>
+            <span class="score" style="color:#00e5a0">75/100</span>
+          </div>
+          <div class="ticket-meta">Kurz 6.26 · Stávka $0 · NORMAL · svk1, uel</div>
+          
+            <div class="leg">
+              <div class="leg-top">
+                <span class="leg-event">Kuopion PS vs. Universitatea Craiova CS - Total Corners</span>
+                <span class="leg-odds">@2.13</span>
+              </div>
+              <div class="leg-mid">
+                <span class="leg-outcome">→ Over</span>
+                <span class="leg-league">⚽ Futbal · Europa League</span>
+              </div>
+              <div class="comps"><span class="comp" style="color:#9aa0a6">News 0</span><span class="comp" style="color:#9aa0a6">Stats 0</span><span class="comp" style="color:#f5a623">Smart$ 56</span><span class="comp" style="color:#ff5c5c">Movt 90</span></div>
+              <div class="sent">💡 kurz sa hýbe týmto smerom</div>
+            </div>
+            <div class="leg">
+              <div class="leg-top">
+                <span class="leg-event">FC Košice vs. FC DAC 1904 Dunajská Streda - More Markets</span>
+                <span class="leg-odds">@2.94</span>
+              </div>
+              <div class="leg-mid">
+                <span class="leg-outcome">→ Over</span>
+                <span class="leg-league">⚽ Futbal · Fortuna Liga</span>
+              </div>
+              <div class="comps"><span class="comp" style="color:#9aa0a6">News 0</span><span class="comp" style="color:#9aa0a6">Stats 0</span><span class="comp" style="color:#f5a623">Smart$ 45</span><span class="comp" style="color:#ff5c5c">Movt 100</span></div>
+              <div class="sent">💡 kurz sa hýbe týmto smerom</div>
+            </div>
+        </div>
+        <div class="ticket 🎯">
+          <div class="ticket-hdr">
+            <span>🎯 2026-08-03-C</span>
+            <span class="score" style="color:#00e5a0">75/100</span>
+          </div>
+          <div class="ticket-meta">Kurz 6.88 · Stávka $0 · NORMAL · svk1, uel</div>
+          
+            <div class="leg">
+              <div class="leg-top">
+                <span class="leg-event">Kuopion PS vs. Universitatea Craiova CS - Total Corners</span>
+                <span class="leg-odds">@2.13</span>
+              </div>
+              <div class="leg-mid">
+                <span class="leg-outcome">→ Over</span>
+                <span class="leg-league">⚽ Futbal · Europa League</span>
+              </div>
+              <div class="comps"><span class="comp" style="color:#9aa0a6">News 0</span><span class="comp" style="color:#9aa0a6">Stats 0</span><span class="comp" style="color:#f5a623">Smart$ 56</span><span class="comp" style="color:#ff5c5c">Movt 90</span></div>
+              <div class="sent">💡 kurz sa hýbe týmto smerom</div>
+            </div>
+            <div class="leg">
+              <div class="leg-top">
+                <span class="leg-event">AS Trenčín vs. ŠK Slovan Bratislava - More Markets</span>
+                <span class="leg-odds">@3.23</span>
+              </div>
+              <div class="leg-mid">
+                <span class="leg-outcome">→ Over</span>
+                <span class="leg-league">⚽ Futbal · Fortuna Liga</span>
+              </div>
+              <div class="comps"><span class="comp" style="color:#9aa0a6">News 0</span><span class="comp" style="color:#9aa0a6">Stats 0</span><span class="comp" style="color:#f5a623">Smart$ 59</span><span class="comp" style="color:#ff5c5c">Movt 100</span></div>
+              <div class="sent">💡 kurz sa hýbe týmto smerom</div>
+            </div>
+        </div>
+  </div>
+</div>
+
+<!-- AGENT ANALYSIS -->
+<div class="section">
+  <div class="sec-title"><span class="bar"></span>🔍 Zhoda agentov (kde sa zhodujú / nezhodujú)</div>
+  <div class="agree-cards">
+    <div class="agree-card all"><div class="a-v">9</div><div class="a-l">Zhoda 3/3</div></div>
+    <div class="agree-card some"><div class="a-v">0</div><div class="a-l">Zhoda 2/3</div></div>
+    <div class="agree-card none"><div class="a-v">0</div><div class="a-l">Nezhoda</div></div>
+  </div>
+  <div class="agr-list">
+        <div class="agr-row all">
+          <span class="agr-badge">AGREE 3/3</span>
+          <div class="agr-info">
+            <div class="agr-event">Kuopion PS vs. Universitatea Craiova CS - Total Corners</div>
+            <div class="agr-detail">Over @ News 0 · Stats 0 · Smart$56 · Movt 90</div>
+          </div>
+        </div>
+        <div class="agr-row all">
+          <span class="agr-badge">AGREE 3/3</span>
+          <div class="agr-info">
+            <div class="agr-event">FC Košice vs. FC DAC 1904 Dunajská Streda - More Markets</div>
+            <div class="agr-detail">Over @ News 0 · Stats 0 · Smart$45 · Movt 100</div>
+          </div>
+        </div>
+        <div class="agr-row all">
+          <span class="agr-badge">AGREE 3/3</span>
+          <div class="agr-info">
+            <div class="agr-event">Kuopion PS vs. Universitatea Craiova CS - Total Corners</div>
+            <div class="agr-detail">Over @ News 0 · Stats 0 · Smart$56 · Movt 90</div>
+          </div>
+        </div>
+        <div class="agr-row all">
+          <span class="agr-badge">AGREE 3/3</span>
+          <div class="agr-info">
+            <div class="agr-event">FC Košice vs. FC DAC 1904 Dunajská Streda - More Markets</div>
+            <div class="agr-detail">Over @ News 0 · Stats 0 · Smart$45 · Movt 100</div>
+          </div>
+        </div>
+        <div class="agr-row all">
+          <span class="agr-badge">AGREE 3/3</span>
+          <div class="agr-info">
+            <div class="agr-event">Kuopion PS vs. Universitatea Craiova CS - Total Corners</div>
+            <div class="agr-detail">Over @ News 0 · Stats 0 · Smart$56 · Movt 90</div>
+          </div>
+        </div>
+        <div class="agr-row all">
+          <span class="agr-badge">AGREE 3/3</span>
+          <div class="agr-info">
+            <div class="agr-event">AS Trenčín vs. ŠK Slovan Bratislava - More Markets</div>
+            <div class="agr-detail">Over @ News 0 · Stats 0 · Smart$59 · Movt 100</div>
+          </div>
+        </div>
+        <div class="agr-row all">
+          <span class="agr-badge">AGREE 3/3</span>
+          <div class="agr-info">
+            <div class="agr-event">MLS: 2026 Defender of the Year</div>
+            <div class="agr-detail">Aaron Long @ News 0 · Stats 0 · Smart$100 · Movt 100</div>
+          </div>
+        </div>
+        <div class="agr-row all">
+          <span class="agr-badge">AGREE 3/3</span>
+          <div class="agr-info">
+            <div class="agr-event">PAOK vs. RSC Anderlecht - Second Half Result</div>
+            <div class="agr-detail">RSC Anderlecht @ News 0 · Stats 0 · Smart$74 · Movt 100</div>
+          </div>
+        </div>
+        <div class="agr-row all">
+          <span class="agr-badge">AGREE 3/3</span>
+          <div class="agr-info">
+            <div class="agr-event">Kuopion PS vs. Universitatea Craiova CS - Total Corners</div>
+            <div class="agr-detail">Over @ News 0 · Stats 0 · Smart$56 · Movt 90</div>
+          </div>
+        </div></div>
+</div>
+
+<!-- SENTIMENT -->
+<div class="section">
+  <div class="sec-title"><span class="bar"></span>💡 Insider / Sentiment — prečo prekvapenie</div>
+  <div class="sent-list"><div class="sent-item"><span class="sent-tick">2026-08-03-A</span><span class="sent-event">Kuopion PS vs. Universitatea Craiova CS - Total Corners</span><span class="sent-exp">kurz sa hýbe týmto smerom</span></div><div class="sent-item"><span class="sent-tick">2026-08-03-A</span><span class="sent-event">FC Košice vs. FC DAC 1904 Dunajská Streda - More Markets</span><span class="sent-exp">kurz sa hýbe týmto smerom</span></div><div class="sent-item"><span class="sent-tick">2026-08-03-B</span><span class="sent-event">Kuopion PS vs. Universitatea Craiova CS - Total Corners</span><span class="sent-exp">kurz sa hýbe týmto smerom</span></div><div class="sent-item"><span class="sent-tick">2026-08-03-B</span><span class="sent-event">FC Košice vs. FC DAC 1904 Dunajská Streda - More Markets</span><span class="sent-exp">kurz sa hýbe týmto smerom</span></div><div class="sent-item"><span class="sent-tick">2026-08-03-C</span><span class="sent-event">Kuopion PS vs. Universitatea Craiova CS - Total Corners</span><span class="sent-exp">kurz sa hýbe týmto smerom</span></div><div class="sent-item"><span class="sent-tick">2026-08-03-C</span><span class="sent-event">AS Trenčín vs. ŠK Slovan Bratislava - More Markets</span><span class="sent-exp">kurz sa hýbe týmto smerom</span></div><div class="sent-item"><span class="sent-tick">2026-08-03-SAFE</span><span class="sent-event">MLS: 2026 Defender of the Year</span><span class="sent-exp">veľké peniaze (smart money) idú týmto smerom, kurz sa hýbe týmto smerom</span></div><div class="sent-item"><span class="sent-tick">2026-08-03-SAFE</span><span class="sent-event">PAOK vs. RSC Anderlecht - Second Half Result</span><span class="sent-exp">veľké peniaze (smart money) idú týmto smerom, kurz sa hýbe týmto smerom</span></div><div class="sent-item"><span class="sent-tick">2026-08-03-SAFE</span><span class="sent-event">Kuopion PS vs. Universitatea Craiova CS - Total Corners</span><span class="sent-exp">kurz sa hýbe týmto smerom</span></div></div>
+</div>
+
+<!-- SELF-IMPROVEMENT -->
+<div class="section">
+  <div class="sec-title"><span class="bar"></span>🧠 Sebazlepšovanie</div>
+  <div class="insights"><div class="ins"><div class="ins-v">0%</div><div class="ins-l">Win rate</div><div class="ins-d">0/0 settled</div></div><div class="ins"><div class="ins-v">+0.0%</div><div class="ins-l">ROI / $100</div><div class="ins-d">realized</div></div><div class="ins"><div class="ins-v">0</div><div class="ins-l">Settled bets</div><div class="ins-d">6 open</div></div><div class="ins"><div class="ins-v">+0$</div><div class="ins-l">Edge proxy</div><div class="ins-d">realized P&amp;L</div></div></div>
+  <div class="lessons"><b>Čo sa engine učí:</b><ul><li>Málo vyriešených stávok — engine zlepšuje presnosť s pribúdajúcimi dátami (paper trading).</li></ul></div>
+</div>
+
+<!-- PIPELINE + RECENT -->
+<div class="section">
+  <div class="sec-title"><span class="bar"></span>🔧 Pipeline a história stávok</div>
+  <div class="pipe-row"><div class="pipe"><div class="pipe-v">4974</div><div class="pipe-l">Marketov</div></div><div class="pipe"><div class="pipe-v">2487</div><div class="pipe-l">Signálov</div></div><div class="pipe"><div class="pipe-v">1538</div><div class="pipe-l">Kandidátov</div></div><div class="pipe"><div class="pipe-v">4</div><div class="pipe-l">Tiketov</div></div></div>
+  <div class="grid2" style="margin-top:14px">
+    <div class="tbl-wrap"><table><thead><tr><th>Ticket</th><th>Stávka</th><th>Kurz</th><th>Status</th><th>P&L</th></tr></thead><tbody><tr>
+          <td>2026-08-02-A</td><td>$10</td><td>9.64</td>
+          <td><span class="st open">● OPEN</span></td><td class="">+0$</td>
+        </tr><tr>
+          <td>2026-08-02-B</td><td>$10</td><td>10.51</td>
+          <td><span class="st open">● OPEN</span></td><td class="">+0$</td>
+        </tr><tr>
+          <td>2026-08-02-C</td><td>$10</td><td>13.88</td>
+          <td><span class="st open">● OPEN</span></td><td class="">+0$</td>
+        </tr><tr>
+          <td>2026-08-03-A</td><td>$11</td><td>8.27</td>
+          <td><span class="st open">● OPEN</span></td><td class="">+0$</td>
+        </tr><tr>
+          <td>2026-08-03-B</td><td>$11</td><td>7.81</td>
+          <td><span class="st open">● OPEN</span></td><td class="">+0$</td>
+        </tr><tr>
+          <td>2026-08-03-C</td><td>$12</td><td>7.03</td>
+          <td><span class="st open">● OPEN</span></td><td class="">+0$</td>
+        </tr></tbody></table></div>
+    <div class="chart-card"><h3>P&L na stávku</h3><div class="chart-box"><canvas id="pnlChart"></canvas></div></div>
+  </div>
+</div>
+
+<footer>Sports Intelligence Engine v3 · Paper Trading · auto-fetch 06:00 · fusion 11:00 · Telegram 12:00</footer>
+</div>
+
+<script>
+new Chart(document.getElementById('eqChart'),{type:'line',data:{labels:["2026-08-03"],datasets:[{label:'Bankroll',data:[1000.0],borderColor:'#00e5a0',backgroundColor:'rgba(0,229,160,.12)',fill:true,tension:.35,pointRadius:4,pointBackgroundColor:'#00e5a0'}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{ticks:{color:'#8a90b0',font:{size:10}},grid:{color:'#232b4d'}},y:{ticks:{color:'#8a90b0',font:{size:10}},grid:{color:'#232b4d'}}}}});
+
+new Chart(document.getElementById('bandChart'),{type:'bar',data:{labels:[],datasets:[{label:'Win rate %',data:[],backgroundColor:'rgba(77,124,254,.6)',borderColor:'#4d7cfe',borderWidth:1}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{ticks:{color:'#8a90b0'},grid:{display:false}},y:{ticks:{color:'#8a90b0'},grid:{color:'#232b4d'}}}}});
+
+const pnlData=[0, 0, 0, 0, 0, 0];
+new Chart(document.getElementById('pnlChart'),{type:'bar',data:{labels:pnlData.map((_,i)=>'#'+(i+1)),datasets:[{data:pnlData,backgroundColor:pnlData.map(v=>v>=0?'rgba(0,229,160,.6)':'rgba(255,92,92,.6)'),borderColor:pnlData.map(v=>v>=0?'#00e5a0':'#ff5c5c'),borderWidth:1}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{ticks:{color:'#8a90b0',display:false},grid:{display:false}},y:{ticks:{color:'#8a90b0'},grid:{color:'#232b4d'}}}}});
+</script></body></html>
