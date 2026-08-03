@@ -29028,18 +29028,18 @@
     }
   },
   "sports": {
-    "generated_at": "2026-08-03 08:59 UTC",
+    "generated_at": "2026-08-03 09:04 UTC",
     "today": "2026-08-03",
     "tickets": [
       {
         "id": "2026-08-03-A",
-        "score": 75.0,
-        "odds": 8.27,
+        "score": 75.2,
+        "odds": 7.84,
         "legs": [
           {
-            "team": "Jagiellonia Białystok",
-            "outcome": "Jagiellonia Białystok",
-            "odds": 2.11
+            "team": "Kuopion PS",
+            "outcome": "Kuopion PS",
+            "odds": 2.0
           },
           {
             "team": "2nd Half O/U 0.5",
@@ -29051,13 +29051,13 @@
       },
       {
         "id": "2026-08-03-B",
-        "score": 75.0,
-        "odds": 7.81,
+        "score": 75.2,
+        "odds": 7.4,
         "legs": [
           {
-            "team": "Jagiellonia Białystok",
-            "outcome": "Jagiellonia Białystok",
-            "odds": 2.11
+            "team": "Kuopion PS",
+            "outcome": "Kuopion PS",
+            "odds": 2.0
           },
           {
             "team": "2nd Half O/U 0.5",
@@ -29069,13 +29069,13 @@
       },
       {
         "id": "2026-08-03-C",
-        "score": 75.0,
-        "odds": 7.03,
+        "score": 75.2,
+        "odds": 6.66,
         "legs": [
           {
-            "team": "Jagiellonia Białystok",
-            "outcome": "Jagiellonia Białystok",
-            "odds": 2.11
+            "team": "Kuopion PS",
+            "outcome": "Kuopion PS",
+            "odds": 2.0
           },
           {
             "team": "2nd Half O/U 0.5",
