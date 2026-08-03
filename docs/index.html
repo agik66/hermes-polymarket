@@ -195,7 +195,7 @@ function renderSportsSync(D){
   var ledger = s.ledger || {};
   var pipeline = s.pipeline || {};
   
-  var h = '<div class="sub" style="margin-bottom:10px">' + (s.generated_at||'') + ' · <span class="badge safety">' + (s.mode||'PAPER TRADING') + '</span> · ' + (s.leagues||'auto') + ' leagues</div>';
+  var h = '<div class="sub" style="margin-bottom:10px">' + (s.generated_at||'') + ' · <span class="badge safety">' + (s.mode||'PAPER TRADING') + '</span> · ' + (s.leagues||'auto') + ' leagues · <span style="cursor:pointer;color:var(--s1);margin-left:10px" onclick="location.reload()">↻ Refresh</span></div>';
   
   h += '<div class="sports-tiles">' +
     '<div class="sports-tile"><div class="v">$' + ((ledger.bankroll||0).toFixed(0)) + '</div><div class="lbl">BANKROLL</div></div>' +
@@ -213,13 +213,22 @@ function renderSportsSync(D){
     h += '<div class="small">No tickets today.</div>';
   } else {
     tickets.forEach(function(t){
-      h += '<div class="ticket-card"><div class="hdr"><span>🎯 ' + esc(t.id) + '</span><span style="color:var(--s2)">Score ' + (t.score||0).toFixed(0) + '/100</span></div>' +
-        '<div class="small" style="margin-bottom:6px">Odds: <b>' + (t.odds||'?') + '</b> · Stake: <b>$' + (t.stake||'paper') + '</b></div>';
-      (t.legs||[]).forEach(function(leg){
-        h += '<div class="ticket-leg"><span>⚽ ' + esc((leg.team||'').substring(0,25)) + '</span><span>→ ' + esc(leg.outcome||'') + '</span><span class="odds">@' + (leg.odds||'?') + '</span></div>';
+        var leagueBadges = (t.leagues||[]).map(function(l){ return '<span class="pill" style="font-size:9px;margin:0 2px">' + esc(l) + '</span>'; }).join('');
+        h += '<div class="ticket-card"><div class="hdr"><span>🎯 ' + esc(t.id) + '</span><span style="color:var(--s2)">Score ' + (t.score||0).toFixed(0) + '/100</span></div>' +
+          '<div class="small" style="margin-bottom:6px">Odds: <b>' + (t.odds||'?') + '</b> · Stake: <b>$' + (t.stake||'paper') + '</b> · ' + leagueBadges + '</div>';
+        (t.legs||[]).forEach(function(leg){
+          var evt = leg.event || leg.team || '';
+          var sportTag = leg.sport ? '<span class="pill" style="font-size:8px;background:var(--grid)">' + esc(leg.sport) + '</span>' : '';
+          h += '<div class="ticket-leg">' +
+            '<div><span style="color:#aaa;font-size:11px">' + esc(evt.substring(0,60)) + '</span> ' + sportTag + '</div>' +
+            '<div style="display:flex;justify-content:space-between;margin-top:3px">' +
+              '<span>' + esc(leg.outcome||'?') + '</span>' +
+              '<span class="odds">@' + (leg.odds||'?') + ' <span style="font-size:10px;color:var(--muted)">score ' + (leg.score||0).toFixed(0) + '</span></span>' +
+            '</div>' +
+          '</div>';
+        });
+        h += '</div>';
       });
-      h += '</div>';
-    });
   }
   
   h += '<h2 style="font-size:14px;font-weight:650;margin:16px 0 8px">📒 Recent Bets</h2>';
