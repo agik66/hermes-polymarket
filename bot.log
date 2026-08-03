@@ -10497,3 +10497,10 @@ review: 2 decisions resolved-reviewed, 0 rule changes (resolution-learned)
 arb: 100 events scanned, 2 deviations >=2c logged
 report: 2026-08-03 pnl=-273.80
 export: docs/data.json written
+=== 2026-08-03 11:07:13
+monitor: 30 new trades, 1 paper copies (rules v24)
+pnl: 27 open updated, total -273.80 (blind bench 47753.31)
+review: 29 decisions resolved-reviewed, 0 rule changes (resolution-learned)
+arb: 100 events scanned, 3 deviations >=2c logged
+report: 2026-08-03 pnl=-273.80
+export: docs/data.json written
