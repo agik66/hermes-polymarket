@@ -196,6 +196,10 @@ function renderSportsSync(D){
   var pipeline = s.pipeline || {};
   
   var h = '<div class="sub" style="margin-bottom:10px">' + (s.generated_at||'') + ' · <span class="badge safety">' + (s.mode||'PAPER TRADING') + '</span> · ' + (s.leagues||'auto') + ' leagues · <span style="cursor:pointer;color:var(--s1);margin-left:10px" onclick="location.reload()">↻ Refresh</span></div>';
+  h += '<div style="margin-bottom:14px;padding:14px;background:var(--surface);border:1px solid var(--border);border-radius:10px;text-align:center">' +
+    '📊 <b>Premium Sports Dashboard</b> — grafy, financie, sentiment, analýza agentov<br><br>' +
+    '<a href="sports.html" class="pill" style="font-size:13px;padding:8px 22px;background:var(--s2);color:#fff;text-decoration:none;border-radius:8px">Otvoríť full dashboard →</a>' +
+  '</div>';
   
   h += '<div class="sports-tiles">' +
     '<div class="sports-tile"><div class="v">$' + ((ledger.bankroll||0).toFixed(0)) + '</div><div class="lbl">BANKROLL</div></div>' +
