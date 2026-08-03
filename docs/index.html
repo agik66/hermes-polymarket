@@ -172,7 +172,7 @@ function renderSports(D){
     container.innerHTML = '<div class="small">Sports data loading... <span style="cursor:pointer;color:var(--s1)" onclick="location.reload()">↺ Reload page</span></div>';
     
     // Try async as last resort
-    fetch('data.json?_=' + Date.now())
+    fetch('sports_data.json?_=' + Date.now())
       .then(function(r){ return r.json(); })
       .then(function(data){
         if(data.sports && data.sports.tickets && data.sports.tickets.length){
