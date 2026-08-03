@@ -29149,7 +29149,7 @@
     }
   },
   "sports": {
-    "generated_at": "2026-08-03 11:49 UTC",
+    "generated_at": "2026-08-03 11:53 UTC",
     "today": "2026-08-03",
     "tickets": [
       {
@@ -29169,7 +29169,15 @@
             "sport": "uel",
             "sport_label": "⚽ Futbal",
             "league": "Europa League",
-            "score": 75.2
+            "score": 75.2,
+            "alignment": 3,
+            "components": {
+              "news_impact": 0,
+              "stat_divergence": 0,
+              "smart_money": 56.5,
+              "line_movement": 90.0
+            },
+            "sentiment": "kurz sa hýbe týmto smerom"
           },
           {
             "team": "FC Košice O/U 0.5",
@@ -29179,7 +29187,15 @@
             "sport": "svk1",
             "sport_label": "⚽ Futbal",
             "league": "Fortuna Liga",
-            "score": 75.0
+            "score": 75.0,
+            "alignment": 3,
+            "components": {
+              "news_impact": 0,
+              "stat_divergence": 0,
+              "smart_money": 45.2,
+              "line_movement": 100
+            },
+            "sentiment": "kurz sa hýbe týmto smerom"
           }
         ],
         "type": "NORMAL",
@@ -29202,7 +29218,15 @@
             "sport": "uel",
             "sport_label": "⚽ Futbal",
             "league": "Europa League",
-            "score": 75.2
+            "score": 75.2,
+            "alignment": 3,
+            "components": {
+              "news_impact": 0,
+              "stat_divergence": 0,
+              "smart_money": 56.5,
+              "line_movement": 90.0
+            },
+            "sentiment": "kurz sa hýbe týmto smerom"
           },
           {
             "team": "FC DAC 1904 Dunajská Streda O/U 0.5",
@@ -29212,7 +29236,15 @@
             "sport": "svk1",
             "sport_label": "⚽ Futbal",
             "league": "Fortuna Liga",
-            "score": 75.0
+            "score": 75.0,
+            "alignment": 3,
+            "components": {
+              "news_impact": 0,
+              "stat_divergence": 0,
+              "smart_money": 45.2,
+              "line_movement": 100
+            },
+            "sentiment": "kurz sa hýbe týmto smerom"
           }
         ],
         "type": "NORMAL",
@@ -29235,7 +29267,15 @@
             "sport": "uel",
             "sport_label": "⚽ Futbal",
             "league": "Europa League",
-            "score": 75.2
+            "score": 75.2,
+            "alignment": 3,
+            "components": {
+              "news_impact": 0,
+              "stat_divergence": 0,
+              "smart_money": 56.5,
+              "line_movement": 90.0
+            },
+            "sentiment": "kurz sa hýbe týmto smerom"
           },
           {
             "team": "AS Trenčín O/U 0.5",
@@ -29245,7 +29285,15 @@
             "sport": "svk1",
             "sport_label": "⚽ Futbal",
             "league": "Fortuna Liga",
-            "score": 75.0
+            "score": 75.0,
+            "alignment": 3,
+            "components": {
+              "news_impact": 0,
+              "stat_divergence": 0,
+              "smart_money": 59.4,
+              "line_movement": 100
+            },
+            "sentiment": "kurz sa hýbe týmto smerom"
           }
         ],
         "type": "NORMAL",
@@ -29266,7 +29314,15 @@
           "sport": "mls",
           "sport_label": "⚽ Futbal",
           "league": "MLS",
-          "score": 100.0
+          "score": 100.0,
+          "alignment": 3,
+          "components": {
+            "news_impact": 0,
+            "stat_divergence": 0,
+            "smart_money": 100.0,
+            "line_movement": 100
+          },
+          "sentiment": "veľké peniaze (smart money) idú týmto smerom, kurz sa hýbe týmto smerom"
         },
         {
           "team": "RSC Anderlecht",
@@ -29276,7 +29332,15 @@
           "sport": "uel",
           "sport_label": "⚽ Futbal",
           "league": "Europa League",
-          "score": 83.9
+          "score": 83.9,
+          "alignment": 3,
+          "components": {
+            "news_impact": 0,
+            "stat_divergence": 0,
+            "smart_money": 74.3,
+            "line_movement": 100
+          },
+          "sentiment": "veľké peniaze (smart money) idú týmto smerom, kurz sa hýbe týmto smerom"
         },
         {
           "team": "Total Corners: O/U 9.5",
@@ -29286,7 +29350,15 @@
           "sport": "uel",
           "sport_label": "⚽ Futbal",
           "league": "Europa League",
-          "score": 75.2
+          "score": 75.2,
+          "alignment": 3,
+          "components": {
+            "news_impact": 0,
+            "stat_divergence": 0,
+            "smart_money": 56.5,
+            "line_movement": 90.0
+          },
+          "sentiment": "kurz sa hýbe týmto smerom"
         }
       ],
       "type": "SAFE",
@@ -29297,8 +29369,19 @@
       "total_bets": 6,
       "open_bets": 6,
       "settled_bets": 0,
-      "total_pnl": 0,
+      "total_staked": 64.51,
+      "open_exposure": 64.51,
+      "realized_pnl": 0,
+      "unrealized_pnl": -64.51,
+      "total_pnl": -64.51,
       "win_rate": 0,
+      "roi_per_100": 0.0,
+      "equity_curve": [
+        {
+          "date": "2026-08-03",
+          "bankroll": 1000.0
+        }
+      ],
       "recent_bets": [
         {
           "ticket_id": "2026-08-02-A",
@@ -29350,15 +29433,404 @@
         }
       ]
     },
+    "agent_analysis": {
+      "agree_all": 9,
+      "agree_some": 0,
+      "disagree": 0,
+      "matrix": [
+        {
+          "ticket": "2026-08-03-A",
+          "event": "Kuopion PS vs. Universitatea Craiova CS - Total Corners",
+          "outcome": "Over",
+          "score": 75.2,
+          "alignment": 3,
+          "components": {
+            "news_impact": 0,
+            "stat_divergence": 0,
+            "smart_money": 56.5,
+            "line_movement": 90.0
+          }
+        },
+        {
+          "ticket": "2026-08-03-A",
+          "event": "FC Košice vs. FC DAC 1904 Dunajská Streda - More Markets",
+          "outcome": "Over",
+          "score": 75.0,
+          "alignment": 3,
+          "components": {
+            "news_impact": 0,
+            "stat_divergence": 0,
+            "smart_money": 45.2,
+            "line_movement": 100
+          }
+        },
+        {
+          "ticket": "2026-08-03-B",
+          "event": "Kuopion PS vs. Universitatea Craiova CS - Total Corners",
+          "outcome": "Over",
+          "score": 75.2,
+          "alignment": 3,
+          "components": {
+            "news_impact": 0,
+            "stat_divergence": 0,
+            "smart_money": 56.5,
+            "line_movement": 90.0
+          }
+        },
+        {
+          "ticket": "2026-08-03-B",
+          "event": "FC Košice vs. FC DAC 1904 Dunajská Streda - More Markets",
+          "outcome": "Over",
+          "score": 75.0,
+          "alignment": 3,
+          "components": {
+            "news_impact": 0,
+            "stat_divergence": 0,
+            "smart_money": 45.2,
+            "line_movement": 100
+          }
+        },
+        {
+          "ticket": "2026-08-03-C",
+          "event": "Kuopion PS vs. Universitatea Craiova CS - Total Corners",
+          "outcome": "Over",
+          "score": 75.2,
+          "alignment": 3,
+          "components": {
+            "news_impact": 0,
+            "stat_divergence": 0,
+            "smart_money": 56.5,
+            "line_movement": 90.0
+          }
+        },
+        {
+          "ticket": "2026-08-03-C",
+          "event": "AS Trenčín vs. ŠK Slovan Bratislava - More Markets",
+          "outcome": "Over",
+          "score": 75.0,
+          "alignment": 3,
+          "components": {
+            "news_impact": 0,
+            "stat_divergence": 0,
+            "smart_money": 59.4,
+            "line_movement": 100
+          }
+        },
+        {
+          "ticket": "2026-08-03-SAFE",
+          "event": "MLS: 2026 Defender of the Year",
+          "outcome": "Aaron Long",
+          "score": 100.0,
+          "alignment": 3,
+          "components": {
+            "news_impact": 0,
+            "stat_divergence": 0,
+            "smart_money": 100.0,
+            "line_movement": 100
+          }
+        },
+        {
+          "ticket": "2026-08-03-SAFE",
+          "event": "PAOK vs. RSC Anderlecht - Second Half Result",
+          "outcome": "RSC Anderlecht",
+          "score": 83.9,
+          "alignment": 3,
+          "components": {
+            "news_impact": 0,
+            "stat_divergence": 0,
+            "smart_money": 74.3,
+            "line_movement": 100
+          }
+        },
+        {
+          "ticket": "2026-08-03-SAFE",
+          "event": "Kuopion PS vs. Universitatea Craiova CS - Total Corners",
+          "outcome": "Over",
+          "score": 75.2,
+          "alignment": 3,
+          "components": {
+            "news_impact": 0,
+            "stat_divergence": 0,
+            "smart_money": 56.5,
+            "line_movement": 90.0
+          }
+        }
+      ]
+    },
+    "sentiment": [
+      {
+        "ticket": "2026-08-03-A",
+        "event": "Kuopion PS vs. Universitatea Craiova CS - Total Corners",
+        "explanation": "kurz sa hýbe týmto smerom"
+      },
+      {
+        "ticket": "2026-08-03-A",
+        "event": "FC Košice vs. FC DAC 1904 Dunajská Streda - More Markets",
+        "explanation": "kurz sa hýbe týmto smerom"
+      },
+      {
+        "ticket": "2026-08-03-B",
+        "event": "Kuopion PS vs. Universitatea Craiova CS - Total Corners",
+        "explanation": "kurz sa hýbe týmto smerom"
+      },
+      {
+        "ticket": "2026-08-03-B",
+        "event": "FC Košice vs. FC DAC 1904 Dunajská Streda - More Markets",
+        "explanation": "kurz sa hýbe týmto smerom"
+      },
+      {
+        "ticket": "2026-08-03-C",
+        "event": "Kuopion PS vs. Universitatea Craiova CS - Total Corners",
+        "explanation": "kurz sa hýbe týmto smerom"
+      },
+      {
+        "ticket": "2026-08-03-C",
+        "event": "AS Trenčín vs. ŠK Slovan Bratislava - More Markets",
+        "explanation": "kurz sa hýbe týmto smerom"
+      },
+      {
+        "ticket": "2026-08-03-SAFE",
+        "event": "MLS: 2026 Defender of the Year",
+        "explanation": "veľké peniaze (smart money) idú týmto smerom, kurz sa hýbe týmto smerom"
+      },
+      {
+        "ticket": "2026-08-03-SAFE",
+        "event": "PAOK vs. RSC Anderlecht - Second Half Result",
+        "explanation": "veľké peniaze (smart money) idú týmto smerom, kurz sa hýbe týmto smerom"
+      },
+      {
+        "ticket": "2026-08-03-SAFE",
+        "event": "Kuopion PS vs. Universitatea Craiova CS - Total Corners",
+        "explanation": "kurz sa hýbe týmto smerom"
+      }
+    ],
+    "self_improvement": {
+      "insights": [
+        {
+          "label": "Win rate",
+          "value": "0%",
+          "detail": "0/0 settled"
+        },
+        {
+          "label": "ROI / $100",
+          "value": "+0.0%",
+          "detail": "realized"
+        },
+        {
+          "label": "Settled bets",
+          "value": "0",
+          "detail": "6 open"
+        },
+        {
+          "label": "Edge proxy",
+          "value": "+0$",
+          "detail": "realized P&L"
+        }
+      ],
+      "score_bands": [],
+      "lessons": [
+        "Málo vyriešených stávok — engine zlepšuje presnosť s pribúdajúcimi dátami (paper trading)."
+      ]
+    },
     "pipeline": {
-      "markets_fetched": 0,
-      "total_markets": 0,
-      "smart_money_analyzed": 0,
-      "candidates": 0,
-      "tickets_built": 3
+      "markets_fetched": 14,
+      "total_markets": 4974,
+      "smart_money_analyzed": 2487,
+      "candidates": 1538,
+      "tickets_built": 4
     },
     "mode": "PAPER TRADING",
     "leagues": 14,
-    "cron_jobs": 5
+    "cron_jobs": 5,
+    "league_names": {
+      "epl": {
+        "sport": "⚽ Futbal",
+        "league": "Premier League"
+      },
+      "laliga": {
+        "sport": "⚽ Futbal",
+        "league": "La Liga"
+      },
+      "bundesliga": {
+        "sport": "⚽ Futbal",
+        "league": "Bundesliga"
+      },
+      "seriea": {
+        "sport": "⚽ Futbal",
+        "league": "Serie A"
+      },
+      "ligue1": {
+        "sport": "⚽ Futbal",
+        "league": "Ligue 1"
+      },
+      "eredivisie": {
+        "sport": "⚽ Futbal",
+        "league": "Eredivisie"
+      },
+      "svk1": {
+        "sport": "⚽ Futbal",
+        "league": "Fortuna Liga"
+      },
+      "pol": {
+        "sport": "⚽ Futbal",
+        "league": "Ekstraklasa"
+      },
+      "czech": {
+        "sport": "⚽ Futbal",
+        "league": "Chance Liga"
+      },
+      "mls": {
+        "sport": "⚽ Futbal",
+        "league": "MLS"
+      },
+      "ucl": {
+        "sport": "⚽ Futbal",
+        "league": "Champions League"
+      },
+      "uel": {
+        "sport": "⚽ Futbal",
+        "league": "Europa League"
+      },
+      "coppa_italia": {
+        "sport": "⚽ Futbal",
+        "league": "Coppa Italia"
+      },
+      "acn": {
+        "sport": "⚽ Futbal",
+        "league": "Africa Cup of Nations"
+      },
+      "fif": {
+        "sport": "⚽ Futbal",
+        "league": "FIFA"
+      },
+      "lcs": {
+        "sport": "⚽ Futbal",
+        "league": "Leagues Cup"
+      },
+      "lib": {
+        "sport": "⚽ Futbal",
+        "league": "Copa Libertadores"
+      },
+      "sud": {
+        "sport": "⚽ Futbal",
+        "league": "Copa Sudamericana"
+      },
+      "arg": {
+        "sport": "⚽ Futbal",
+        "league": "Primera Division"
+      },
+      "mex": {
+        "sport": "⚽ Futbal",
+        "league": "Liga MX"
+      },
+      "nhl": {
+        "sport": "🏒 Hokej",
+        "league": "NHL"
+      },
+      "shl": {
+        "sport": "🏒 Hokej",
+        "league": "SHL"
+      },
+      "khl": {
+        "sport": "🏒 Hokej",
+        "league": "KHL"
+      },
+      "nba": {
+        "sport": "🏀 Basketbal",
+        "league": "NBA"
+      },
+      "wnba": {
+        "sport": "🏀 Basketbal",
+        "league": "WNBA"
+      },
+      "ncaab": {
+        "sport": "🏀 Basketbal",
+        "league": "NCAA"
+      },
+      "cwbb": {
+        "sport": "🏀 Basketbal",
+        "league": "College WBB"
+      },
+      "euroleague": {
+        "sport": "🏀 Basketbal",
+        "league": "EuroLeague"
+      },
+      "nfl": {
+        "sport": "🏈 Futbal",
+        "league": "NFL"
+      },
+      "cfb": {
+        "sport": "🏈 Futbal",
+        "league": "College Football"
+      },
+      "cfl": {
+        "sport": "🏈 Futbal",
+        "league": "CFL"
+      },
+      "f1": {
+        "sport": "🏎️ Motorsport",
+        "league": "Formula 1"
+      },
+      "atp": {
+        "sport": "🎾 Tenis",
+        "league": "ATP Tour"
+      },
+      "wta": {
+        "sport": "🎾 Tenis",
+        "league": "WTA Tour"
+      },
+      "itf": {
+        "sport": "🎾 Tenis",
+        "league": "ITF"
+      },
+      "pga": {
+        "sport": "⛳ Golf",
+        "league": "PGA Tour"
+      },
+      "lpga": {
+        "sport": "⛳ Golf",
+        "league": "LPGA"
+      },
+      "dpwt": {
+        "sport": "⛳ Golf",
+        "league": "DP World Tour"
+      },
+      "mlb": {
+        "sport": "⚾ Baseball",
+        "league": "MLB"
+      },
+      "dota2": {
+        "sport": "🎮 Esport",
+        "league": "Dota 2"
+      },
+      "lol": {
+        "sport": "🎮 Esport",
+        "league": "League of Legends"
+      },
+      "cs2": {
+        "sport": "🎮 Esport",
+        "league": "CS2"
+      },
+      "val": {
+        "sport": "🎮 Esport",
+        "league": "Valorant"
+      },
+      "chess": {
+        "sport": "♟️ Chess",
+        "league": "Chess"
+      },
+      "abb": {
+        "sport": "🏏 Cricket",
+        "league": "Big Bash"
+      },
+      "t20": {
+        "sport": "🏏 Cricket",
+        "league": "T20"
+      },
+      "odi": {
+        "sport": "🏏 Cricket",
+        "league": "ODI"
+      }
+    }
   }
 }
