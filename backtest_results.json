@@ -1,5 +1,5 @@
 {
- "generated": "2026-07-18 12:07:54",
+ "generated": "2026-07-29 15:33:09",
  "params": {
   "hist_days": 90,
   "oos_window_days": [
@@ -16,190 +16,174 @@
   ]
  },
  "selected": [
-  "Sportbetting76",
-  "ndb1",
-  "Prelode",
-  "JhonAlexanderHinestroza",
-  "Pwaddler"
+  "0xf6683D202f76FC9B79E5BE716CE8519DAb5b5c69-1765800503123",
+  "RISK-IS-NEVER-OK",
+  "Eztennis",
+  "phonesculptor",
+  "sulumos"
  ],
  "scenarios": {
   "cost_0c": {
    "selected_top5_OOS": {
-    "n": 195,
-    "win_rate": 0.456,
-    "mean": 0.0867,
-    "sd": 1.6405,
-    "t_stat": 0.74,
-    "total": 16.91,
-    "max_drawdown": 10.25
+    "n": 4,
+    "win_rate": 0.0,
+    "mean": -1.0,
+    "sd": 0.0,
+    "t_stat": 0.0,
+    "total": -4.0,
+    "max_drawdown": 4.0
    },
    "all_wallets_OOS_blind": {
-    "n": 429,
-    "win_rate": 0.441,
-    "mean": 0.019,
-    "sd": 1.5033,
-    "t_stat": 0.26,
-    "total": 8.14,
-    "max_drawdown": 30.86
+    "n": 40,
+    "win_rate": 0.575,
+    "mean": 0.2467,
+    "sd": 1.5023,
+    "t_stat": 1.04,
+    "total": 9.87,
+    "max_drawdown": 5.8
    },
    "bottom5_OOS_control": {
-    "n": 12,
-    "win_rate": 0.667,
-    "mean": 0.0551,
-    "sd": 0.8711,
-    "t_stat": 0.22,
-    "total": 0.66,
-    "max_drawdown": 2.61
+    "n": 4,
+    "win_rate": 0.5,
+    "mean": 0.1559,
+    "sd": 1.6472,
+    "t_stat": 0.19,
+    "total": 0.62,
+    "max_drawdown": 1.0
    },
    "selected_top5_IS_for_reference": {
-    "n": 651,
-    "win_rate": 0.539,
-    "mean": 0.0933,
-    "sd": 1.2989,
-    "t_stat": 1.83,
-    "total": 60.73,
-    "max_drawdown": 18.98
+    "n": 500,
+    "win_rate": 0.532,
+    "mean": 0.1677,
+    "sd": 1.6133,
+    "t_stat": 2.32,
+    "total": 83.83,
+    "max_drawdown": 11.37
    }
   },
   "cost_1c": {
    "selected_top5_OOS": {
-    "n": 195,
-    "win_rate": 0.456,
-    "mean": 0.0501,
-    "sd": 1.5479,
-    "t_stat": 0.45,
-    "total": 9.77,
-    "max_drawdown": 11.45
+    "n": 4,
+    "win_rate": 0.0,
+    "mean": -1.0,
+    "sd": 0.0,
+    "t_stat": 0.0,
+    "total": -4.0,
+    "max_drawdown": 4.0
    },
    "all_wallets_OOS_blind": {
-    "n": 429,
-    "win_rate": 0.441,
-    "mean": -0.0125,
-    "sd": 1.4269,
-    "t_stat": -0.18,
-    "total": -5.35,
-    "max_drawdown": 37.84
+    "n": 40,
+    "win_rate": 0.575,
+    "mean": 0.2107,
+    "sd": 1.4283,
+    "t_stat": 0.93,
+    "total": 8.43,
+    "max_drawdown": 5.85
    },
    "bottom5_OOS_control": {
-    "n": 12,
-    "win_rate": 0.667,
-    "mean": 0.0374,
-    "sd": 0.8531,
+    "n": 4,
+    "win_rate": 0.5,
+    "mean": 0.1231,
+    "sd": 1.5915,
     "t_stat": 0.15,
-    "total": 0.45,
-    "max_drawdown": 2.63
+    "total": 0.49,
+    "max_drawdown": 1.0
    },
    "selected_top5_IS_for_reference": {
-    "n": 651,
-    "win_rate": 0.539,
-    "mean": 0.0656,
-    "sd": 1.2367,
-    "t_stat": 1.35,
-    "total": 42.71,
-    "max_drawdown": 22.01
+    "n": 500,
+    "win_rate": 0.532,
+    "mean": 0.1307,
+    "sd": 1.4774,
+    "t_stat": 1.98,
+    "total": 65.37,
+    "max_drawdown": 12.52
    }
   },
   "cost_2c": {
    "selected_top5_OOS": {
-    "n": 195,
-    "win_rate": 0.456,
-    "mean": 0.0168,
-    "sd": 1.4679,
-    "t_stat": 0.16,
-    "total": 3.28,
-    "max_drawdown": 13.1
+    "n": 4,
+    "win_rate": 0.0,
+    "mean": -1.0,
+    "sd": 0.0,
+    "t_stat": 0.0,
+    "total": -4.0,
+    "max_drawdown": 4.0
    },
    "all_wallets_OOS_blind": {
-    "n": 429,
-    "win_rate": 0.441,
-    "mean": -0.0413,
-    "sd": 1.3604,
-    "t_stat": -0.63,
-    "total": -17.72,
-    "max_drawdown": 44.36
+    "n": 40,
+    "win_rate": 0.575,
+    "mean": 0.1774,
+    "sd": 1.3629,
+    "t_stat": 0.82,
+    "total": 7.1,
+    "max_drawdown": 5.9
    },
    "bottom5_OOS_control": {
-    "n": 12,
-    "win_rate": 0.667,
-    "mean": 0.0202,
-    "sd": 0.8359,
-    "t_stat": 0.08,
-    "total": 0.24,
-    "max_drawdown": 2.65
+    "n": 4,
+    "win_rate": 0.5,
+    "mean": 0.0924,
+    "sd": 1.5395,
+    "t_stat": 0.12,
+    "total": 0.37,
+    "max_drawdown": 1.0
    },
    "selected_top5_IS_for_reference": {
-    "n": 651,
-    "win_rate": 0.539,
-    "mean": 0.0399,
-    "sd": 1.1839,
-    "t_stat": 0.86,
-    "total": 25.98,
-    "max_drawdown": 24.92
+    "n": 500,
+    "win_rate": 0.532,
+    "mean": 0.0981,
+    "sd": 1.376,
+    "t_stat": 1.59,
+    "total": 49.03,
+    "max_drawdown": 13.85
    }
   }
  },
  "is_oos_rank_correlation": {
-  "rho": 0.273,
-  "wallets": 12
+  "rho": null,
+  "wallets": 2
  },
  "selected_OOS_by_category": {
-  "2026": {
-   "n": 4,
-   "mean": -0.4138
-  },
-  "chi": {
-   "n": 8,
-   "mean": 0.5307
-  },
-  "cs2": {
-   "n": 1,
-   "mean": -1.0
-  },
   "fifwc": {
-   "n": 132,
-   "mean": -0.0008
+   "n": 2,
+   "mean": 1.9412
   },
   "mlb": {
-   "n": 1,
-   "mean": 0.4085
+   "n": 2,
+   "mean": -1.0
   },
   "ufc": {
-   "n": 7,
-   "mean": -0.1265
-  },
-  "will": {
    "n": 1,
    "mean": -1.0
   },
   "world": {
-   "n": 50,
-   "mean": 0.0811
+   "n": 1,
+   "mean": -1.0
   }
  },
  "learning_comparison_at_+2c": {
   "none": {
-   "n": 195,
-   "win_rate": 0.456,
-   "mean": 0.0168,
-   "sd": 1.4679,
-   "t_stat": 0.16,
-   "total": 3.28,
-   "max_drawdown": 13.1
+   "n": 4,
+   "win_rate": 0.0,
+   "mean": -1.0,
+   "sd": 0.0,
+   "t_stat": 0.0,
+   "total": -4.0,
+   "max_drawdown": 4.0
   },
   "resolution": {
-   "n": 138,
-   "win_rate": 0.384,
-   "mean": -0.0427,
-   "sd": 1.623,
-   "t_stat": -0.31,
-   "total": -5.89,
-   "max_drawdown": 13.1
+   "n": 4,
+   "win_rate": 0.0,
+   "mean": -1.0,
+   "sd": 0.0,
+   "t_stat": 0.0,
+   "total": -4.0,
+   "max_drawdown": 4.0
   },
   "noise_1h_drift_emulation": {
    "runs": 20,
-   "avg_n": 126.4,
-   "mean_of_means": 0.0427,
-   "mean_total": 4.29
+   "avg_n": 4.0,
+   "mean_of_means": -1.0,
+   "mean_total": -4.0
   }
  },
  "verdict": {
