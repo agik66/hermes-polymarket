@@ -1,0 +1,53 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Hermes//Jasenica U09//SK
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Jasenica U09 – futbal
+X-WR-TIMEZONE:Europe/Bratislava
+BEGIN:VEVENT
+UID:jasenica-u09-2026-09-04-1@hermes
+DTSTAMP:20260905T000000Z
+DTSTART;TZID=Europe/Bratislava:20260904T160000
+DTEND;TZID=Europe/Bratislava:20260904T164500
+SUMMARY:TJ Partizán Domaniža – TJ Hradišťan Jasenica
+LOCATION:Domaniža
+DESCRIPTION:Mladšia prípravka U09 – ObFZ Považská Bystrica, sk. D. Rozpis podľa SPORTNET.
+END:VEVENT
+BEGIN:VEVENT
+UID:jasenica-u09-2026-09-11-1@hermes
+DTSTAMP:20260905T000000Z
+DTSTART;TZID=Europe/Bratislava:20260911T160000
+DTEND;TZID=Europe/Bratislava:20260911T164500
+SUMMARY:TJ Plevník - Drienové – TJ Hradišťan Jasenica
+LOCATION:Plevník-Drienové
+DESCRIPTION:Mladšia prípravka U09 – ObFZ Považská Bystrica, sk. D. Rozpis podľa SPORTNET.
+END:VEVENT
+BEGIN:VEVENT
+UID:jasenica-u09-2026-09-18-1@hermes
+DTSTAMP:20260905T000000Z
+DTSTART;TZID=Europe/Bratislava:20260918T160000
+DTEND;TZID=Europe/Bratislava:20260918T164500
+SUMMARY:TJ Hradišťan Jasenica – TJ Žiar Papradno
+LOCATION:Jasenica
+DESCRIPTION:Mladšia prípravka U09 – ObFZ Považská Bystrica, sk. D. Rozpis podľa SPORTNET.
+END:VEVENT
+BEGIN:VEVENT
+UID:jasenica-u09-2026-09-25-1@hermes
+DTSTAMP:20260905T000000Z
+DTSTART;TZID=Europe/Bratislava:20260925T160000
+DTEND;TZID=Europe/Bratislava:20260925T164500
+SUMMARY:TJ Hradišťan Jasenica – TJ Skaličan Praznov
+LOCATION:Jasenica
+DESCRIPTION:Mladšia prípravka U09 – ObFZ Považská Bystrica, sk. D. Rozpis podľa SPORTNET.
+END:VEVENT
+BEGIN:VEVENT
+UID:jasenica-u09-2026-10-02-1@hermes
+DTSTAMP:20260905T000000Z
+DTSTART;TZID=Europe/Bratislava:20261002T160000
+DTEND;TZID=Europe/Bratislava:20261002T164500
+SUMMARY:TJ Manín Podmanín – TJ Hradišťan Jasenica
+LOCATION:Podmanín
+DESCRIPTION:Mladšia prípravka U09 – ObFZ Považská Bystrica, sk. D. Rozpis podľa SPORTNET.
+END:VEVENT
+END:VCALENDAR
